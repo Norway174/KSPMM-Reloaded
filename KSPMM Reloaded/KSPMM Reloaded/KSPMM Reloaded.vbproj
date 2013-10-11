@@ -71,13 +71,14 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Core.vb" />
-    <Compile Include="Internal\Core_UC.Designer.vb">
-      <DependentUpon>Core_UC.vb</DependentUpon>
+    <Compile Include="Internal\Internal.vb" />
+    <Compile Include="Internal\Startup.vb" />
+    <Compile Include="Internal\Startup_UC.Designer.vb">
+      <DependentUpon>Startup_UC.vb</DependentUpon>
     </Compile>
-    <Compile Include="Internal\Core_UC.vb">
+    <Compile Include="Internal\Startup_UC.vb">
       <SubType>UserControl</SubType>
     </Compile>
-    <Compile Include="Internal\Internal.vb" />
     <Compile Include="Main.vb">
       <SubType>Form</SubType>
     </Compile>
@@ -105,8 +106,8 @@
     <EmbeddedResource Include="Core.resx">
       <DependentUpon>Core.vb</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="Internal\Core_UC.resx">
-      <DependentUpon>Core_UC.vb</DependentUpon>
+    <EmbeddedResource Include="Internal\Startup_UC.resx">
+      <DependentUpon>Startup_UC.vb</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Main.resx">
       <DependentUpon>Main.vb</DependentUpon>

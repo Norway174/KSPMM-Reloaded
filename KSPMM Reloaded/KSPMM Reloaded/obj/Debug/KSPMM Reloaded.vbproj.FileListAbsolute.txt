@@ -3,7 +3,6 @@ C:\Users\Jesse\Documents\GitHub\KSPMM-Reloaded\KSPMM Reloaded\KSPMM Reloaded\bin
 C:\Users\Jesse\Documents\GitHub\KSPMM-Reloaded\KSPMM Reloaded\KSPMM Reloaded\bin\Debug\KSPMM Reloaded.exe
 C:\Users\Jesse\Documents\GitHub\KSPMM-Reloaded\KSPMM Reloaded\KSPMM Reloaded\bin\Debug\KSPMM Reloaded.pdb
 C:\Users\Jesse\Documents\GitHub\KSPMM-Reloaded\KSPMM Reloaded\KSPMM Reloaded\bin\Debug\KSPMM Reloaded.xml
-C:\Users\Jesse\Documents\GitHub\KSPMM-Reloaded\KSPMM Reloaded\KSPMM Reloaded\obj\Debug\KSPMM_Reloaded.Core_UC.resources
 C:\Users\Jesse\Documents\GitHub\KSPMM-Reloaded\KSPMM Reloaded\KSPMM Reloaded\obj\Debug\KSPMM_Reloaded.Main.resources
 C:\Users\Jesse\Documents\GitHub\KSPMM-Reloaded\KSPMM Reloaded\KSPMM Reloaded\obj\Debug\KSPMM_Reloaded.Resources.resources
 C:\Users\Jesse\Documents\GitHub\KSPMM-Reloaded\KSPMM Reloaded\KSPMM Reloaded\obj\Debug\KSPMM Reloaded.vbproj.GenerateResource.Cache
@@ -11,3 +10,4 @@ C:\Users\Jesse\Documents\GitHub\KSPMM-Reloaded\KSPMM Reloaded\KSPMM Reloaded\obj
 C:\Users\Jesse\Documents\GitHub\KSPMM-Reloaded\KSPMM Reloaded\KSPMM Reloaded\obj\Debug\KSPMM Reloaded.xml
 C:\Users\Jesse\Documents\GitHub\KSPMM-Reloaded\KSPMM Reloaded\KSPMM Reloaded\obj\Debug\KSPMM Reloaded.pdb
 C:\Users\Jesse\Documents\GitHub\KSPMM-Reloaded\KSPMM Reloaded\KSPMM Reloaded\obj\Debug\KSPMM_Reloaded.Core.resources
+C:\Users\Jesse\Documents\GitHub\KSPMM-Reloaded\KSPMM Reloaded\KSPMM Reloaded\obj\Debug\KSPMM_Reloaded.Startup_UC.resources

@@ -1,5 +1,5 @@
 ﻿<Global.Microsoft.VisualBasic.CompilerServices.DesignerGenerated()> _
-Partial Class Core_UC
+Partial Class Startup_UC
     Inherits System.Windows.Forms.UserControl
 
     'UserControl overrides dispose to clean up the component list.
@@ -34,12 +34,12 @@ Partial Class Core_UC
         Me.WebBrowser1.Size = New System.Drawing.Size(150, 150)
         Me.WebBrowser1.TabIndex = 0
         '
-        'Core_UC
+        'Startup_UC
         '
         Me.AutoScaleDimensions = New System.Drawing.SizeF(6.0!, 13.0!)
         Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font
         Me.Controls.Add(Me.WebBrowser1)
-        Me.Name = "Core_UC"
+        Me.Name = "Startup_UC"
         Me.ResumeLayout(False)
 
     End Sub

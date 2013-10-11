@@ -5,6 +5,8 @@
     End Sub
 
     Private Sub Main_Load(sender As Object, e As EventArgs) Handles MyBase.Load
-        Core = New Core
+        Status.Text = "Loading Plugins..."
+        Core = New Core(tabctrlMain)
+        Status.Text = "Idle"
     End Sub
 End Class

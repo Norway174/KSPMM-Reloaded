@@ -23,12 +23,11 @@ Partial Class Main
     <System.Diagnostics.DebuggerStepThrough()> _
     Private Sub InitializeComponent()
         Me.StatusStrip1 = New System.Windows.Forms.StatusStrip()
-        Me.ToolStripStatusLabel1 = New System.Windows.Forms.ToolStripStatusLabel()
+        Me.Status = New System.Windows.Forms.ToolStripStatusLabel()
         Me.MenuStrip1 = New System.Windows.Forms.MenuStrip()
         Me.FileToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem()
         Me.ExitToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem()
         Me.EditToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem()
-        Me.ToolStrip1 = New System.Windows.Forms.ToolStrip()
         Me.tabctrlMain = New System.Windows.Forms.TabControl()
         Me.StatusStrip1.SuspendLayout()
         Me.MenuStrip1.SuspendLayout()
@@ -36,18 +35,18 @@ Partial Class Main
         '
         'StatusStrip1
         '
-        Me.StatusStrip1.Items.AddRange(New System.Windows.Forms.ToolStripItem() {Me.ToolStripStatusLabel1})
+        Me.StatusStrip1.Items.AddRange(New System.Windows.Forms.ToolStripItem() {Me.Status})
         Me.StatusStrip1.Location = New System.Drawing.Point(0, 254)
         Me.StatusStrip1.Name = "StatusStrip1"
         Me.StatusStrip1.Size = New System.Drawing.Size(527, 22)
         Me.StatusStrip1.TabIndex = 0
         Me.StatusStrip1.Text = "StatusStrip1"
         '
-        'ToolStripStatusLabel1
+        'Status
         '
-        Me.ToolStripStatusLabel1.Name = "ToolStripStatusLabel1"
-        Me.ToolStripStatusLabel1.Size = New System.Drawing.Size(26, 17)
-        Me.ToolStripStatusLabel1.Text = "Idle"
+        Me.Status.Name = "Status"
+        Me.Status.Size = New System.Drawing.Size(26, 17)
+        Me.Status.Text = "Idle"
         '
         'MenuStrip1
         '
@@ -77,21 +76,13 @@ Partial Class Main
         Me.EditToolStripMenuItem.Size = New System.Drawing.Size(39, 20)
         Me.EditToolStripMenuItem.Text = "Edit"
         '
-        'ToolStrip1
-        '
-        Me.ToolStrip1.Location = New System.Drawing.Point(0, 24)
-        Me.ToolStrip1.Name = "ToolStrip1"
-        Me.ToolStrip1.Size = New System.Drawing.Size(527, 25)
-        Me.ToolStrip1.TabIndex = 2
-        Me.ToolStrip1.Text = "ToolStrip1"
-        '
         'tabctrlMain
         '
         Me.tabctrlMain.Dock = System.Windows.Forms.DockStyle.Fill
-        Me.tabctrlMain.Location = New System.Drawing.Point(0, 49)
+        Me.tabctrlMain.Location = New System.Drawing.Point(0, 24)
         Me.tabctrlMain.Name = "tabctrlMain"
         Me.tabctrlMain.SelectedIndex = 0
-        Me.tabctrlMain.Size = New System.Drawing.Size(527, 205)
+        Me.tabctrlMain.Size = New System.Drawing.Size(527, 230)
         Me.tabctrlMain.TabIndex = 3
         Me.tabctrlMain.TabStop = False
         '
@@ -101,7 +92,6 @@ Partial Class Main
         Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font
         Me.ClientSize = New System.Drawing.Size(527, 276)
         Me.Controls.Add(Me.tabctrlMain)
-        Me.Controls.Add(Me.ToolStrip1)
         Me.Controls.Add(Me.StatusStrip1)
         Me.Controls.Add(Me.MenuStrip1)
         Me.MainMenuStrip = Me.MenuStrip1
@@ -116,12 +106,11 @@ Partial Class Main
 
     End Sub
     Friend WithEvents StatusStrip1 As System.Windows.Forms.StatusStrip
-    Friend WithEvents ToolStripStatusLabel1 As System.Windows.Forms.ToolStripStatusLabel
+    Friend WithEvents Status As System.Windows.Forms.ToolStripStatusLabel
     Friend WithEvents MenuStrip1 As System.Windows.Forms.MenuStrip
     Friend WithEvents FileToolStripMenuItem As System.Windows.Forms.ToolStripMenuItem
     Friend WithEvents ExitToolStripMenuItem As System.Windows.Forms.ToolStripMenuItem
     Friend WithEvents EditToolStripMenuItem As System.Windows.Forms.ToolStripMenuItem
-    Friend WithEvents ToolStrip1 As System.Windows.Forms.ToolStrip
     Friend WithEvents tabctrlMain As System.Windows.Forms.TabControl
 
 End Class

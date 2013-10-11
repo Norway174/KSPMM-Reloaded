@@ -3,7 +3,7 @@ Namespace Internal
     Public Module Internal
         ReadOnly Property ListOfInternalPlugins As IPlugin()
             Get
-                Dim list As IPlugin() = {KSPMM_Reloaded.Internal.Core.Plugin}
+                Dim list As IPlugin() = {KSPMM_Reloaded.Internal.Startup.Plugin}
                 Return list
             End Get
         End Property

@@ -1,17 +1,15 @@
 ﻿Public Class Core
-    Sub New()
-#If DEBUG Then
-        LoadPlugin(KSPMM_Reloaded.Internal.Core.Plugin) 'To see if it will make it work
-#End If
+    Sub New(ByRef TabControl As TabControl)
         For Each plug As IPlugin In Internal.Internal.ListOfInternalPlugins
-            LoadPlugin(plug)
+            LoadPlugin(plug, TabControl)
         Next
     End Sub
-    Friend Sub LoadPlugin(ByVal Plugin As IPlugin)
+    Public Sub LoadPlugin(ByVal Plugin As IPlugin, ByRef TabControl As TabControl)
         Dim tab As New TabPage()
         tab.Controls.Add(Plugin.Control)
         tab.Controls(0).Dock = DockStyle.Fill
         tab.AutoScroll = True
+        tab.Text = Plugin.Name
         Main.tabctrlMain.TabPages.Add(tab)
     End Sub
 End Class
@@ -21,3 +19,13 @@ Public Interface IPlugin
     Property Description As String
     Property Control As UserControl
 End Interface
+Public Class Plugin
+    Implements IPlugin
+    Public Property Control As UserControl Implements IPlugin.Control
+
+    Public Property Description As String Implements IPlugin.Description
+
+    Public Property Name As String Implements IPlugin.Name
+
+    Public Property Version As Version Implements IPlugin.Version
+End Class
