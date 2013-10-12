@@ -1,9 +1,9 @@
 ﻿Imports KSPMM_Reloaded.Core
 Namespace Internal
-    Public Module Internal
+    Public Module Core
         ReadOnly Property ListOfInternalPlugins As IPlugin()
             Get
-                Dim list As IPlugin() = {KSPMM_Reloaded.Internal.Startup.Plugin}
+                Dim list As IPlugin() = {Internal.Startup.Plugin, Internal.Network.Plugin}
                 Return list
             End Get
         End Property

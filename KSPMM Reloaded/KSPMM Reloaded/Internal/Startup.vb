@@ -1,11 +1,12 @@
 ﻿Namespace Internal
     Public Module Startup
+        Private _UC As New Startup_UC
         Public ReadOnly Property Plugin As IPlugin
             Get
                 Dim p As New Plugin ' IPlugin
-                p.Name = "Startup"
+                p.Name = "Welcome Page"
                 p.Version = New Version(1, 0, 0, 0)
-                p.Control = New Startup_UC
+                p.Control = _UC
                 Return p
             End Get
         End Property

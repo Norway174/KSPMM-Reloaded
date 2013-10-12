@@ -11,3 +11,5 @@ C:\Users\Jesse\Documents\GitHub\KSPMM-Reloaded\KSPMM Reloaded\KSPMM Reloaded\obj
 C:\Users\Jesse\Documents\GitHub\KSPMM-Reloaded\KSPMM Reloaded\KSPMM Reloaded\obj\Debug\KSPMM Reloaded.pdb
 C:\Users\Jesse\Documents\GitHub\KSPMM-Reloaded\KSPMM Reloaded\KSPMM Reloaded\obj\Debug\KSPMM_Reloaded.Core.resources
 C:\Users\Jesse\Documents\GitHub\KSPMM-Reloaded\KSPMM Reloaded\KSPMM Reloaded\obj\Debug\KSPMM_Reloaded.Startup_UC.resources
+C:\Users\Jesse\Documents\GitHub\KSPMM-Reloaded\KSPMM Reloaded\KSPMM Reloaded\obj\Debug\KSPMM_Reloaded.NetworkDownload_UC.resources
+C:\Users\Jesse\Documents\GitHub\KSPMM-Reloaded\KSPMM Reloaded\KSPMM Reloaded\obj\Debug\KSPMM_Reloaded.Network_UC.resources

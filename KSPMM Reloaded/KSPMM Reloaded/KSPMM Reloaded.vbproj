@@ -46,6 +46,7 @@
     <OptionInfer>On</OptionInfer>
   </PropertyGroup>
   <ItemGroup>
+    <Reference Include="Microsoft.VisualBasic.PowerPacks.Vs, Version=10.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL" />
     <Reference Include="System" />
     <Reference Include="System.Data" />
     <Reference Include="System.Deployment" />
@@ -72,6 +73,19 @@
   <ItemGroup>
     <Compile Include="Core.vb" />
     <Compile Include="Internal\Internal.vb" />
+    <Compile Include="Internal\Network.vb" />
+    <Compile Include="Internal\NetworkDownload_UC.Designer.vb">
+      <DependentUpon>NetworkDownload_UC.vb</DependentUpon>
+    </Compile>
+    <Compile Include="Internal\NetworkDownload_UC.vb">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="Internal\Network_UC.Designer.vb">
+      <DependentUpon>Network_UC.vb</DependentUpon>
+    </Compile>
+    <Compile Include="Internal\Network_UC.vb">
+      <SubType>UserControl</SubType>
+    </Compile>
     <Compile Include="Internal\Startup.vb" />
     <Compile Include="Internal\Startup_UC.Designer.vb">
       <DependentUpon>Startup_UC.vb</DependentUpon>
@@ -105,6 +119,12 @@
   <ItemGroup>
     <EmbeddedResource Include="Core.resx">
       <DependentUpon>Core.vb</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Internal\NetworkDownload_UC.resx">
+      <DependentUpon>NetworkDownload_UC.vb</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Internal\Network_UC.resx">
+      <DependentUpon>Network_UC.vb</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Internal\Startup_UC.resx">
       <DependentUpon>Startup_UC.vb</DependentUpon>

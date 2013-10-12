@@ -1,7 +1,9 @@
 ﻿Public Class Core
+    Public Plugins As New List(Of IPlugin)
     Sub New(ByRef TabControl As TabControl)
-        For Each plug As IPlugin In Internal.Internal.ListOfInternalPlugins
+        For Each plug As IPlugin In Internal.Core.ListOfInternalPlugins
             LoadPlugin(plug, TabControl)
+            Plugins.Add(plug)
         Next
     End Sub
     Public Sub LoadPlugin(ByVal Plugin As IPlugin, ByRef TabControl As TabControl)
@@ -28,4 +30,7 @@ Public Class Plugin
     Public Property Name As String Implements IPlugin.Name
 
     Public Property Version As Version Implements IPlugin.Version
+End Class
+Public MustInherit Class ClassLibrary
+
 End Class
