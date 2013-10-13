@@ -5,6 +5,7 @@
     End Sub
 
     Private Sub Main_Load(sender As Object, e As EventArgs) Handles MyBase.Load
+        CheckForIllegalCrossThreadCalls = False 'Only for debug
         Status.Text = "Loading Plugins..."
         Core = New Core(tabctrlMain)
         Status.Text = "Idle"

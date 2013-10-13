@@ -3,7 +3,8 @@ Namespace Internal
     Public Module Core
         ReadOnly Property ListOfInternalPlugins As IPlugin()
             Get
-                Dim list As IPlugin() = {Internal.Startup.Plugin, Internal.Network.Plugin}
+                Dim list As IPlugin() = {Internal.Startup.Plugin, _
+                                         Internal.Network.Plugin}
                 Return list
             End Get
         End Property

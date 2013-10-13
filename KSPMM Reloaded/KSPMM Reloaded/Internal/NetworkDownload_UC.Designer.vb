@@ -26,9 +26,10 @@ Partial Class NetworkDownload_UC
         Me.DName = New System.Windows.Forms.Label()
         Me.DStatus = New System.Windows.Forms.Label()
         Me.DPriority = New System.Windows.Forms.Label()
-        Me.Label1 = New System.Windows.Forms.Label()
         Me.ShapeContainer1 = New Microsoft.VisualBasic.PowerPacks.ShapeContainer()
         Me.LineShape1 = New Microsoft.VisualBasic.PowerPacks.LineShape()
+        Me.DProgressBar = New System.Windows.Forms.ProgressBar()
+        Me.DProgress = New System.Windows.Forms.Label()
         CType(Me.DImage, System.ComponentModel.ISupportInitialize).BeginInit()
         Me.SuspendLayout()
         '
@@ -71,15 +72,6 @@ Partial Class NetworkDownload_UC
         Me.DPriority.TabIndex = 4
         Me.DPriority.Text = "Priority"
         '
-        'Label1
-        '
-        Me.Label1.AutoSize = True
-        Me.Label1.Location = New System.Drawing.Point(7, 5)
-        Me.Label1.Name = "Label1"
-        Me.Label1.Size = New System.Drawing.Size(36, 39)
-        Me.Label1.TabIndex = 5
-        Me.Label1.Text = "Image" & Global.Microsoft.VisualBasic.ChrW(13) & Global.Microsoft.VisualBasic.ChrW(10) & "Goes" & Global.Microsoft.VisualBasic.ChrW(13) & Global.Microsoft.VisualBasic.ChrW(10) & "Here"
-        '
         'ShapeContainer1
         '
         Me.ShapeContainer1.Location = New System.Drawing.Point(0, 0)
@@ -98,13 +90,34 @@ Partial Class NetworkDownload_UC
         Me.LineShape1.Y1 = 0
         Me.LineShape1.Y2 = 50
         '
+        'DProgressBar
+        '
+        Me.DProgressBar.Anchor = CType(((System.Windows.Forms.AnchorStyles.Bottom Or System.Windows.Forms.AnchorStyles.Left) _
+            Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
+        Me.DProgressBar.Location = New System.Drawing.Point(128, 34)
+        Me.DProgressBar.Name = "DProgressBar"
+        Me.DProgressBar.Size = New System.Drawing.Size(132, 13)
+        Me.DProgressBar.TabIndex = 7
+        '
+        'DProgress
+        '
+        Me.DProgress.Anchor = CType((System.Windows.Forms.AnchorStyles.Bottom Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
+        Me.DProgress.AutoSize = True
+        Me.DProgress.Location = New System.Drawing.Point(218, 18)
+        Me.DProgress.Name = "DProgress"
+        Me.DProgress.Size = New System.Drawing.Size(44, 13)
+        Me.DProgress.TabIndex = 8
+        Me.DProgress.Text = "0B / 0B"
+        Me.DProgress.TextAlign = System.Drawing.ContentAlignment.BottomRight
+        '
         'NetworkDownload_UC
         '
         Me.AutoScaleDimensions = New System.Drawing.SizeF(6.0!, 13.0!)
         Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font
         Me.BackColor = System.Drawing.Color.White
         Me.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle
-        Me.Controls.Add(Me.Label1)
+        Me.Controls.Add(Me.DProgress)
+        Me.Controls.Add(Me.DProgressBar)
         Me.Controls.Add(Me.DPriority)
         Me.Controls.Add(Me.DStatus)
         Me.Controls.Add(Me.DName)
@@ -121,8 +134,9 @@ Partial Class NetworkDownload_UC
     Friend WithEvents DName As System.Windows.Forms.Label
     Friend WithEvents DStatus As System.Windows.Forms.Label
     Friend WithEvents DPriority As System.Windows.Forms.Label
-    Friend WithEvents Label1 As System.Windows.Forms.Label
     Friend WithEvents ShapeContainer1 As Microsoft.VisualBasic.PowerPacks.ShapeContainer
     Friend WithEvents LineShape1 As Microsoft.VisualBasic.PowerPacks.LineShape
+    Friend WithEvents DProgressBar As System.Windows.Forms.ProgressBar
+    Friend WithEvents DProgress As System.Windows.Forms.Label
 
 End Class

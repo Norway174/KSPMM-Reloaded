@@ -30,7 +30,8 @@ Public Class Plugin
     Public Property Name As String Implements IPlugin.Name
 
     Public Property Version As Version Implements IPlugin.Version
-End Class
-Public MustInherit Class ClassLibrary
 
+    Public Enum PluginType
+        TabbedUserControl = 1
+    End Enum
 End Class
