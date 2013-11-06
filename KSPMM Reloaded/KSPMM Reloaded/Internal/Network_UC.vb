@@ -16,7 +16,7 @@
         Dim save As New SaveFileDialog
         save.Filter = "All Files (*.*)|*.*"
         save.FileName = TextBox1.Text.Remove(0, TextBox1.Text.LastIndexOf("/"c) + 1)
-        If save.ShowDialog() = DialogResult.Cancel Then Exit Sub
+        If save.ShowDialog() = DialogResult.Cancel Or save.FileName = "" Then Exit Sub
         Dim down As New Internal.Download(New Uri(TextBox1.Text), save.FileName, Internal.Priority.Normal)
         Internal.Network.Add(down)
     End Sub

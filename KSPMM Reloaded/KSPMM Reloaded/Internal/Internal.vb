@@ -4,6 +4,15 @@ Namespace Internal
         ReadOnly Property ListOfInternalPlugins As IPlugin()
             Get
                 Dim list As IPlugin() = {Internal.Startup.Plugin, _
+                                         Internal.Network.Plugin, _
+                                         Internal.ModIO.Plugin, _
+                                         Internal.Settings.Plugin}
+                Return list
+            End Get
+        End Property
+        ReadOnly Property ListOfInternalSettings As Setting()
+            Get
+                Dim list As Setting() = {Internal.Startup.Plugin, _
                                          Internal.Network.Plugin}
                 Return list
             End Get

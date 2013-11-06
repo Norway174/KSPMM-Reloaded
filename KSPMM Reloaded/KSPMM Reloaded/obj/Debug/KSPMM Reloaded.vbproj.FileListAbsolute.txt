@@ -29,3 +29,6 @@ D:\Users\obicj.KARDINIA\Documents\GitHub\KSPMM-Reloaded\KSPMM Reloaded\KSPMM Rel
 D:\Users\obicj.KARDINIA\Documents\GitHub\KSPMM-Reloaded\KSPMM Reloaded\KSPMM Reloaded\obj\Debug\KSPMM Reloaded.vbproj.GenerateResource.Cache
 D:\Users\obicj.KARDINIA\Documents\GitHub\KSPMM-Reloaded\KSPMM Reloaded\KSPMM Reloaded\bin\Debug\BasicUFL.dll
 D:\Users\obicj.KARDINIA\Documents\GitHub\KSPMM-Reloaded\KSPMM Reloaded\KSPMM Reloaded\obj\Debug\KSPMM Reloaded.vbprojResolveAssemblyReference.cache
+d:\Users\obicj.KARDINIA\Documents\GitHub\KSPMM-Reloaded\KSPMM Reloaded\KSPMM Reloaded\bin\Debug\Ionic.Zip.dll
+d:\Users\obicj.KARDINIA\Documents\GitHub\KSPMM-Reloaded\KSPMM Reloaded\KSPMM Reloaded\obj\Debug\KSPMM_Reloaded.ModIO_UC.resources
+d:\Users\obicj.KARDINIA\Documents\GitHub\KSPMM-Reloaded\KSPMM Reloaded\KSPMM Reloaded\obj\Debug\KSPMM_Reloaded.Settings_UC.resources

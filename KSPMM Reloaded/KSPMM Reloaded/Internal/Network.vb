@@ -20,6 +20,7 @@ Namespace Internal
                 p.Name = "Downloads"
                 p.Version = New Version(1, 0, 0, 0)
                 p.Control = NetworkUC
+                p.TypeOfPlugin = KSPMM_Reloaded.Plugin.PluginType.TabbedUserControl
                 Return p
             End Get
         End Property

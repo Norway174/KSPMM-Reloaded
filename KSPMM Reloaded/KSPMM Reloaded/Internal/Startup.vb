@@ -6,6 +6,7 @@
                 Dim p As New Plugin ' IPlugin
                 p.Name = "Welcome Page"
                 p.Version = New Version(1, 0, 0, 0)
+                p.TypeOfPlugin = KSPMM_Reloaded.Plugin.PluginType.TabbedUserControl
                 p.Control = _UC
                 Return p
             End Get

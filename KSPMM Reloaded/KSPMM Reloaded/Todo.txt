@@ -1,0 +1,2 @@
+﻿ModIO - Add support for streams and byte arrays, AND AN ACTUAL DISPLAY
+Settings - Add support for icons for the nodes

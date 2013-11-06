@@ -11,7 +11,8 @@
     <AssemblyName>KSPMM Reloaded</AssemblyName>
     <FileAlignment>512</FileAlignment>
     <MyType>WindowsForms</MyType>
-    <TargetFrameworkVersion>v4.5</TargetFrameworkVersion>
+    <TargetFrameworkVersion>v3.5</TargetFrameworkVersion>
+    <TargetFrameworkProfile />
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
     <PlatformTarget>AnyCPU</PlatformTarget>
@@ -49,6 +50,9 @@
     <Reference Include="BasicUFL">
       <HintPath>..\..\..\BasicUFL\BasicUFL.dll</HintPath>
     </Reference>
+    <Reference Include="Ionic.Zip">
+      <HintPath>..\..\..\KSPMM\KSPMM\Kerbal Space Program Mod Manager\Ionic.Zip.dll</HintPath>
+    </Reference>
     <Reference Include="Microsoft.VisualBasic.PowerPacks.Vs, Version=10.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL" />
     <Reference Include="System" />
     <Reference Include="System.Data" />
@@ -74,8 +78,16 @@
     <Import Include="System.Threading.Tasks" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="ApplicationEvents.vb" />
     <Compile Include="Core.vb" />
     <Compile Include="Internal\Internal.vb" />
+    <Compile Include="Internal\ModIO.vb" />
+    <Compile Include="Internal\ModIO_UC.Designer.vb">
+      <DependentUpon>ModIO_UC.vb</DependentUpon>
+    </Compile>
+    <Compile Include="Internal\ModIO_UC.vb">
+      <SubType>UserControl</SubType>
+    </Compile>
     <Compile Include="Internal\Network.vb" />
     <Compile Include="Internal\NetworkDownload_UC.Designer.vb">
       <DependentUpon>NetworkDownload_UC.vb</DependentUpon>
@@ -87,6 +99,13 @@
       <DependentUpon>Network_UC.vb</DependentUpon>
     </Compile>
     <Compile Include="Internal\Network_UC.vb">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="Internal\Settings.vb" />
+    <Compile Include="Internal\Settings_UC.Designer.vb">
+      <DependentUpon>Settings_UC.vb</DependentUpon>
+    </Compile>
+    <Compile Include="Internal\Settings_UC.vb">
       <SubType>UserControl</SubType>
     </Compile>
     <Compile Include="Internal\Startup.vb" />
@@ -123,11 +142,17 @@
     <EmbeddedResource Include="Core.resx">
       <DependentUpon>Core.vb</DependentUpon>
     </EmbeddedResource>
+    <EmbeddedResource Include="Internal\ModIO_UC.resx">
+      <DependentUpon>ModIO_UC.vb</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="Internal\NetworkDownload_UC.resx">
       <DependentUpon>NetworkDownload_UC.vb</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Internal\Network_UC.resx">
       <DependentUpon>Network_UC.vb</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Internal\Settings_UC.resx">
+      <DependentUpon>Settings_UC.vb</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Internal\Startup_UC.resx">
       <DependentUpon>Startup_UC.vb</DependentUpon>
@@ -153,6 +178,9 @@
       <LastGenOutput>Settings.Designer.vb</LastGenOutput>
     </None>
     <None Include="App.config" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Todo.txt" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.VisualBasic.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
