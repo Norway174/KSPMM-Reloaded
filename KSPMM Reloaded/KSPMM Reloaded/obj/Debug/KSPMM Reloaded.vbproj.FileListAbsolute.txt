@@ -32,3 +32,20 @@ D:\Users\obicj.KARDINIA\Documents\GitHub\KSPMM-Reloaded\KSPMM Reloaded\KSPMM Rel
 d:\Users\obicj.KARDINIA\Documents\GitHub\KSPMM-Reloaded\KSPMM Reloaded\KSPMM Reloaded\bin\Debug\Ionic.Zip.dll
 d:\Users\obicj.KARDINIA\Documents\GitHub\KSPMM-Reloaded\KSPMM Reloaded\KSPMM Reloaded\obj\Debug\KSPMM_Reloaded.ModIO_UC.resources
 d:\Users\obicj.KARDINIA\Documents\GitHub\KSPMM-Reloaded\KSPMM Reloaded\KSPMM Reloaded\obj\Debug\KSPMM_Reloaded.Settings_UC.resources
+D:\GitHub\KSPMM-Reloaded\KSPMM Reloaded\KSPMM Reloaded\bin\Debug\KSPMM Reloaded.exe.config
+D:\GitHub\KSPMM-Reloaded\KSPMM Reloaded\KSPMM Reloaded\obj\Debug\KSPMM Reloaded.exe
+D:\GitHub\KSPMM-Reloaded\KSPMM Reloaded\KSPMM Reloaded\obj\Debug\KSPMM Reloaded.xml
+D:\GitHub\KSPMM-Reloaded\KSPMM Reloaded\KSPMM Reloaded\obj\Debug\KSPMM Reloaded.pdb
+D:\GitHub\KSPMM-Reloaded\KSPMM Reloaded\KSPMM Reloaded\bin\Debug\KSPMM Reloaded.exe
+D:\GitHub\KSPMM-Reloaded\KSPMM Reloaded\KSPMM Reloaded\bin\Debug\KSPMM Reloaded.pdb
+D:\GitHub\KSPMM-Reloaded\KSPMM Reloaded\KSPMM Reloaded\bin\Debug\KSPMM Reloaded.xml
+D:\GitHub\KSPMM-Reloaded\KSPMM Reloaded\KSPMM Reloaded\obj\Debug\KSPMM Reloaded.vbprojResolveAssemblyReference.cache
+D:\GitHub\KSPMM-Reloaded\KSPMM Reloaded\KSPMM Reloaded\obj\Debug\KSPMM_Reloaded.Core.resources
+D:\GitHub\KSPMM-Reloaded\KSPMM Reloaded\KSPMM Reloaded\obj\Debug\KSPMM_Reloaded.ModIO_UC.resources
+D:\GitHub\KSPMM-Reloaded\KSPMM Reloaded\KSPMM Reloaded\obj\Debug\KSPMM_Reloaded.NetworkDownload_UC.resources
+D:\GitHub\KSPMM-Reloaded\KSPMM Reloaded\KSPMM Reloaded\obj\Debug\KSPMM_Reloaded.Network_UC.resources
+D:\GitHub\KSPMM-Reloaded\KSPMM Reloaded\KSPMM Reloaded\obj\Debug\KSPMM_Reloaded.Settings_UC.resources
+D:\GitHub\KSPMM-Reloaded\KSPMM Reloaded\KSPMM Reloaded\obj\Debug\KSPMM_Reloaded.Startup_UC.resources
+D:\GitHub\KSPMM-Reloaded\KSPMM Reloaded\KSPMM Reloaded\obj\Debug\KSPMM_Reloaded.Main.resources
+D:\GitHub\KSPMM-Reloaded\KSPMM Reloaded\KSPMM Reloaded\obj\Debug\KSPMM_Reloaded.Resources.resources
+D:\GitHub\KSPMM-Reloaded\KSPMM Reloaded\KSPMM Reloaded\obj\Debug\KSPMM Reloaded.vbproj.GenerateResource.Cache

@@ -1,2 +1,16 @@
 ﻿ModIO - Add support for streams and byte arrays, AND AN ACTUAL DISPLAY
 Settings - Add support for icons for the nodes
+
+ADDED BY NORWAY174:
+I've added the Updater from KSPMM.
+Haven't added the check for updates yet.
+
+But to initialize the updater, simply just call these functions;
+
+Dim UpdW As New Updater
+UpdW.PassedText = UpdateUrl
+UpdW.Show()
+
+Replace "UpdateUrl" with the direct link to the new .exe.
+This URL can be retrieved for the same way as it could for KSPMM.
+I will add functions for that later, which you can then call whenever you think is needed. Such as each Start-up.
