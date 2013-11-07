@@ -6,7 +6,7 @@ Public Class Updater
 
     Dim mainExe As String = System.IO.Path.GetFileName(Application.ExecutablePath)
     Dim oldExeLoc As String = System.IO.Path.GetDirectoryName(mainExe)
-    Dim oldExe As String = oldExeLoc & "KSPMM.Old"
+    Dim oldExe As String = oldExeLoc & "KSPMM Reloaded.Old"
 
 
     Private _passedText As String

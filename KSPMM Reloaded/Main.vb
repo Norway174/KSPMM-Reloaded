@@ -10,4 +10,10 @@
         Core = New Core(tabctrlMain, Plugin.PluginType.TabbedUserControl)
         Status.Text = "Idle"
     End Sub
+
+    Private Sub UpdateKSPMMReloadedToolStripMenuItem_Click(sender As Object, e As EventArgs) Handles UpdateKSPMMReloadedToolStripMenuItem.Click
+        Dim UpdW As New Updater
+        UpdW.PassedText = "https://raw.github.com/Norway174/KSPMM-Reloaded/master/KSPMM%20Reloaded.exe"
+        UpdW.ShowDialog(Me)
+    End Sub
 End Class

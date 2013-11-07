@@ -49,3 +49,7 @@ D:\GitHub\KSPMM-Reloaded\KSPMM Reloaded\KSPMM Reloaded\obj\Debug\KSPMM_Reloaded.
 D:\GitHub\KSPMM-Reloaded\KSPMM Reloaded\KSPMM Reloaded\obj\Debug\KSPMM_Reloaded.Main.resources
 D:\GitHub\KSPMM-Reloaded\KSPMM Reloaded\KSPMM Reloaded\obj\Debug\KSPMM_Reloaded.Resources.resources
 D:\GitHub\KSPMM-Reloaded\KSPMM Reloaded\KSPMM Reloaded\obj\Debug\KSPMM Reloaded.vbproj.GenerateResource.Cache
+D:\Users\obicj.KARDINIA\Documents\GitHub\KSPMM-Reloaded\KSPMM Reloaded\bin\Debug\KSPMM Reloaded.exe.config
+D:\Users\obicj.KARDINIA\Documents\GitHub\KSPMM-Reloaded\KSPMM Reloaded\obj\Debug\KSPMM Reloaded.exe
+D:\Users\obicj.KARDINIA\Documents\GitHub\KSPMM-Reloaded\KSPMM Reloaded\obj\Debug\KSPMM Reloaded.xml
+D:\Users\obicj.KARDINIA\Documents\GitHub\KSPMM-Reloaded\KSPMM Reloaded\obj\Debug\KSPMM Reloaded.pdb
