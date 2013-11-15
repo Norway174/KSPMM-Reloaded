@@ -30,14 +30,17 @@
         End Class
         Public Sub Startup()
             If My.Settings.Settings Is Nothing Then
+                'MsgBox("settings is nothing")
                 My.Settings.Settings = New ArrayList()
+            Else
+                'MsgBox("settings isnt nothing, " & My.Settings.Settings.Count)
             End If
         End Sub
         Public Sub ChangeSettings(ByVal SettingMode As SettingMode, ByVal NewSetting As InternalSetting)
             SyncLock My.Settings.Settings
                 If My.Settings.Settings Is Nothing Then My.Settings.Settings = New ArrayList
                 Dim sett As New List(Of InternalSetting)
-                ConvertList(LoadSettings(My.Settings.Settings), sett)
+                sett = LoadSettings(My.Settings.Settings)
                 Select Case SettingMode
                     Case Settings.SettingMode.CreateNew
                         For Each t As InternalSetting In sett
@@ -74,14 +77,15 @@
                             i += 1
                         Next
                         If e = False Then sett.Add(NewSetting)
-                        My.Settings.Settings = UnloadSettings(sett)
+                        Dim a = UnloadSettings(sett)
+                        My.Settings.Settings = a
                         My.Settings.Save()
                 End Select
             End SyncLock
         End Sub
         Public Function ObtainSetting(ByVal ID As String) As InternalSetting
             Dim l As New List(Of InternalSetting)
-            ConvertList(LoadSettings(My.Settings.Settings), l)
+            l = LoadSettings(My.Settings.Settings)
             For Each n As InternalSetting In l
                 If n.ID = ID Then
                     Return n
@@ -89,15 +93,9 @@
             Next
             Return Nothing
         End Function
-        Public Sub ConvertList(Of T, V)(ByVal List As List(Of T), ByRef NewList As List(Of V))
-            For Each lel As Object In List
-                NewList.Add(lel)
-            Next
-            Return
-        End Sub
-        Public Function LoadSettings(ByVal ArrayList As ArrayList) As List(Of Object)
-            If My.Settings.Settings Is Nothing Then My.Settings.Settings = New ArrayList
-            Dim l As New List(Of Object)
+        
+        Public Function LoadSettings(ByVal ArrayList As ArrayList) As List(Of InternalSetting)
+            Dim l As New List(Of InternalSetting)
             For Each ll As Object In ArrayList
                 l.Add(ll)
             Next

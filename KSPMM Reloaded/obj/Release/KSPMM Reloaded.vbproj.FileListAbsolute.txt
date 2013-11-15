@@ -18,3 +18,4 @@ D:\Users\obicj.KARDINIA\Documents\GitHub\KSPMM-Reloaded\KSPMM Reloaded\obj\Relea
 D:\Users\obicj.KARDINIA\Documents\GitHub\KSPMM-Reloaded\KSPMM Reloaded\obj\Release\KSPMM Reloaded.exe
 D:\Users\obicj.KARDINIA\Documents\GitHub\KSPMM-Reloaded\KSPMM Reloaded\obj\Release\KSPMM Reloaded.xml
 D:\Users\obicj.KARDINIA\Documents\GitHub\KSPMM-Reloaded\KSPMM Reloaded\obj\Release\KSPMM Reloaded.pdb
+D:\Users\obicj.KARDINIA\Documents\GitHub\KSPMM-Reloaded\KSPMM Reloaded\obj\Release\KSPMM_Reloaded.Overpass_UC.resources

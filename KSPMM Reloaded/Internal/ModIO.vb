@@ -11,51 +11,71 @@ Namespace Internal
                 p.Description = "Basic Mod I/O"
                 p.Name = "Modding"
                 p.TypeOfPlugin = KSPMM_Reloaded.Plugin.PluginType.TabbedUserControl
-                p.Version = New Version(1, 0, 0, 0)
+                p.Version = New Version(1, 1, 0, 0)
                 Return p
             End Get
         End Property
         Private Flags() As String = {"Flags", "Parts", "Props", "Resources", "Sounds", "Spaces", "PluginData", "Plugins", "Textures"}
         Public Mods As New List(Of Modification)
-        Public ModFileNames As New List(Of String)
         Public Sub AddMod(ByVal Modification As Modification)
-            Dim z = Modification.GetZipFile
-            Dim b As Boolean = False
-            For Each e As ZipEntry In z.Entries
-                If e.IsDirectory AndAlso Flags.Contains(e.FileName.Remove(e.FileName.LastIndexOf("/"c))) Then
-                    Mods.Add(Modification)
-                    SaveModsToSettings()
-                    Return
-                End If
-            Next
-            MsgBox("File structure not currently supported. This is not even a beta, so you should've been expecting it.", MsgBoxStyle.Exclamation)
+            Modification.Index = Mods.Count
+            Mods.Add(Modification)
+            SaveModsToSettings()
+            UC.RebuildTree()
         End Sub
+        Public Function CheckIfStructureSupported(ByVal Modification As Modification) As Boolean
+            Using z As New ZipFile(Modification.Filename)
+                Dim b As Boolean = False
+                For Each e As ZipEntry In z.Entries
+                    If e.IsDirectory AndAlso Flags.Contains(e.FileName.Remove(e.FileName.LastIndexOf("/"c))) Then
+                        Return True
+                    End If
+                Next
+            End Using
+            Return False
+            'MsgBox("File structure not currently supported. This is not even a beta, so you should've been expecting it.", MsgBoxStyle.Exclamation)
+        End Function
         Public Sub RemoveMod(ByVal Modification As Modification)
             Mods.Remove(Modification)
             SaveModsToSettings()
+            UC.RebuildTree()
         End Sub
         Public Function LoadModsFromSettings() As List(Of Modification)
-            Return Settings.ObtainSetting("Mods").Setting(0)
-        End Function
-        Public Function LoadModNamesFromSettings() As List(Of String)
-            Return Settings.ObtainSetting("ModNames").Setting(0)
+            'Return Settings.ObtainSetting("Mods").Setting(0)
+            Dim m As New List(Of Modification)
+            If My.Settings.Mods Is Nothing Then My.Settings.Mods = New ArrayList
+            For Each o As Object In My.Settings.Mods
+                m.Add(o)
+            Next
+            Return m
         End Function
         Public Sub SaveModsToSettings()
-            Settings.ChangeSettings(SettingMode.CreateorUpdate, New InternalSetting({Mods}, "Mods"))
-        End Sub
-        Public Sub SaveModNamesToSettings()
-            Settings.ChangeSettings(SettingMode.CreateorUpdate, New InternalSetting({ModFileNames}, "ModNames"))
+            'Settings.ChangeSettings(SettingMode.CreateorUpdate, New InternalSetting({Mods}, "Mods"))
+            Dim m As New ArrayList
+            For Each o As Object In Mods
+                m.Add(o)
+            Next
+            My.Settings.Mods = m
+            My.Settings.Save()
         End Sub
         Public Function LoadMods(ByVal KSPDir As String) As Boolean
             Try
                 For Each m As Modification In Mods
-                    Dim z As ZipFile = m.GetZipFile
-                    Dim name As String = (KSPDir & "\GameData\" & z.Name.Remove(z.Name.LastIndexOf("."c)).Remove(0, z.Name.LastIndexOf("\"c) + 1))
-                    Directory.CreateDirectory(name)
-                    ModFileNames.Add(name)
-                    m.GetZipFile.ExtractAll(name, ExtractExistingFileAction.OverwriteSilently)
+                    Using z As ZipFile = m.GetZipFile
+                        Dim name As String = (KSPDir & "\GameData\" & z.Name.Remove(z.Name.LastIndexOf("."c)).Remove(0, z.Name.LastIndexOf("\"c) + 1))
+                        Directory.CreateDirectory(name)
+                        m.ModFolderExtracted = name
+                        For Each entry As ZipEntry In z.Entries
+                            For Each e As ModSelection In m.ModSelections
+                                If entry.FileName = e.ModEntryName AndAlso e.Use Then
+                                    entry.Extract(name, ExtractExistingFileAction.OverwriteSilently)
+                                End If
+                            Next
+                        Next
+                        'm.GetZipFile.ExtractAll(name, ExtractExistingFileAction.OverwriteSilently)
+                    End Using
                 Next
-                SaveModNamesToSettings()
+                SaveModsToSettings()
                 Return True
             Catch ex As Exception
                 MsgBox(ex.Message, MsgBoxStyle.Critical)
@@ -64,11 +84,13 @@ Namespace Internal
         End Function
         Public Function UnloadMods() As Boolean
             Try
-                For Each m As String In ModFileNames
-                    Directory.Delete(m, True)
+                For Each m As Modification In Mods
+                    If Directory.Exists(m.ModFolderExtracted) Then
+                        Directory.Delete(m.ModFolderExtracted, True)
+                        m.ModFolderExtracted = True
+                    End If
                 Next
-                ModFileNames.Clear()
-                SaveModNamesToSettings()
+                SaveModsToSettings()
                 Return True
             Catch ex As Exception
                 MsgBox(ex.Message, MsgBoxStyle.Critical)
@@ -76,15 +98,36 @@ Namespace Internal
             Return False
         End Function
     End Module
+    Public Structure ModSelection
+        Sub New(ByVal _ModEntryName As String, ByVal _Use As Boolean)
+            ModEntryName = _ModEntryName
+            Use = _Use
+        End Sub
+        Property Use As Boolean
+        Property ModEntryName As String
+    End Structure
     Partial Public Class Modification
         Sub New(ByVal Filename As String, ByVal Compression As Compression)
             _filename = Filename
             _comp = Compression
+            Using z As New ZipFile(_filename)
+                For Each e As ZipEntry In z.Entries
+                    Dim m As New ModSelection
+                    m.ModEntryName = e.FileName
+                    m.Use = False
+                    ModSelections.Add(m)
+                Next
+            End Using
         End Sub
+
+        Public Property ModSelections As New List(Of ModSelection)
 
         Public Function GetZipFile() As ZipFile
             Return New ZipFile(Filename)
         End Function
+
+        Public Property Index As Integer
+        Public Property ModFolderExtracted As String
 
         Private _comp As Compression
         Public ReadOnly Property Compression As Compression

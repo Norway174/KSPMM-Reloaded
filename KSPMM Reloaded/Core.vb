@@ -19,6 +19,8 @@
                 Main.tabctrlMain.TabPages.Add(tab)
             Case KSPMM_Reloaded.Plugin.PluginType.RuntimeStartup
                 _Plugin.MainDelegate.Invoke()
+            Case Plugin.PluginType.MainFormStartup
+                _Plugin.MainDelegate.Invoke()
         End Select
     End Sub
 End Class
@@ -49,6 +51,7 @@ Public Class Plugin
         All = 0
         TabbedUserControl = 1
         RuntimeStartup = 2
+        MainFormStartup = 3
     End Enum
 
     Public Property MainDelegate As IPlugin.PluginDelegate Implements IPlugin.MainDelegate

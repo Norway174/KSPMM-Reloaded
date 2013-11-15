@@ -101,6 +101,13 @@
     <Compile Include="Internal\Network_UC.vb">
       <SubType>UserControl</SubType>
     </Compile>
+    <Compile Include="Internal\Overpass.vb" />
+    <Compile Include="Internal\Overpass_UC.Designer.vb">
+      <DependentUpon>Overpass_UC.vb</DependentUpon>
+    </Compile>
+    <Compile Include="Internal\Overpass_UC.vb">
+      <SubType>UserControl</SubType>
+    </Compile>
     <Compile Include="Internal\Settings.vb" />
     <Compile Include="Internal\Settings_UC.Designer.vb">
       <DependentUpon>Settings_UC.vb</DependentUpon>
@@ -157,6 +164,9 @@
     <EmbeddedResource Include="Internal\Network_UC.resx">
       <DependentUpon>Network_UC.vb</DependentUpon>
     </EmbeddedResource>
+    <EmbeddedResource Include="Internal\Overpass_UC.resx">
+      <DependentUpon>Overpass_UC.vb</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="Internal\Settings_UC.resx">
       <DependentUpon>Settings_UC.vb</DependentUpon>
     </EmbeddedResource>
@@ -189,6 +199,12 @@
     <None Include="App.config" />
   </ItemGroup>
   <ItemGroup>
+    <None Include="Resources\tick.png" />
+    <None Include="Resources\application_get.png" />
+    <None Include="Resources\arrow_refresh_small.png" />
+    <None Include="Resources\error.png" />
+    <None Include="Resources\add.png" />
+    <None Include="Resources\delete.png" />
     <Content Include="Todo.txt" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.VisualBasic.targets" />

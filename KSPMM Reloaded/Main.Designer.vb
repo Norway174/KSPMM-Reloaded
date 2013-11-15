@@ -22,25 +22,26 @@ Partial Class Main
     'Do not modify it using the code editor.
     <System.Diagnostics.DebuggerStepThrough()> _
     Private Sub InitializeComponent()
+        Me.components = New System.ComponentModel.Container()
         Dim resources As System.ComponentModel.ComponentResourceManager = New System.ComponentModel.ComponentResourceManager(GetType(Main))
         Me.StatusStrip1 = New System.Windows.Forms.StatusStrip()
         Me.ToolStripProgressBar1 = New System.Windows.Forms.ToolStripProgressBar()
-        Me.ToolStripSplitButton1 = New System.Windows.Forms.ToolStripSplitButton()
+        Me.UpdateButton = New System.Windows.Forms.ToolStripSplitButton()
         Me.CheckForUpdatesToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem()
-        Me.UpdateKSPMMReloadedToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem()
         Me.Status = New System.Windows.Forms.ToolStripStatusLabel()
         Me.MenuStrip1 = New System.Windows.Forms.MenuStrip()
         Me.FileToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem()
         Me.ExitToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem()
         Me.EditToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem()
         Me.tabctrlMain = New System.Windows.Forms.TabControl()
+        Me.StartupTimer = New System.Windows.Forms.Timer(Me.components)
         Me.StatusStrip1.SuspendLayout()
         Me.MenuStrip1.SuspendLayout()
         Me.SuspendLayout()
         '
         'StatusStrip1
         '
-        Me.StatusStrip1.Items.AddRange(New System.Windows.Forms.ToolStripItem() {Me.ToolStripProgressBar1, Me.ToolStripSplitButton1, Me.Status})
+        Me.StatusStrip1.Items.AddRange(New System.Windows.Forms.ToolStripItem() {Me.ToolStripProgressBar1, Me.UpdateButton, Me.Status})
         Me.StatusStrip1.Location = New System.Drawing.Point(0, 254)
         Me.StatusStrip1.Name = "StatusStrip1"
         Me.StatusStrip1.Size = New System.Drawing.Size(527, 22)
@@ -49,31 +50,25 @@ Partial Class Main
         '
         'ToolStripProgressBar1
         '
+        Me.ToolStripProgressBar1.MarqueeAnimationSpeed = 50
         Me.ToolStripProgressBar1.Name = "ToolStripProgressBar1"
         Me.ToolStripProgressBar1.Size = New System.Drawing.Size(100, 16)
         '
-        'ToolStripSplitButton1
+        'UpdateButton
         '
-        Me.ToolStripSplitButton1.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Text
-        Me.ToolStripSplitButton1.DropDownItems.AddRange(New System.Windows.Forms.ToolStripItem() {Me.CheckForUpdatesToolStripMenuItem, Me.UpdateKSPMMReloadedToolStripMenuItem})
-        Me.ToolStripSplitButton1.Image = CType(resources.GetObject("ToolStripSplitButton1.Image"), System.Drawing.Image)
-        Me.ToolStripSplitButton1.ImageTransparentColor = System.Drawing.Color.Magenta
-        Me.ToolStripSplitButton1.Name = "ToolStripSplitButton1"
-        Me.ToolStripSplitButton1.Size = New System.Drawing.Size(66, 20)
-        Me.ToolStripSplitButton1.Text = "Updates"
+        Me.UpdateButton.DropDownItems.AddRange(New System.Windows.Forms.ToolStripItem() {Me.CheckForUpdatesToolStripMenuItem})
+        Me.UpdateButton.Image = Global.KSPMM_Reloaded.My.Resources.Resources.application_get
+        Me.UpdateButton.ImageTransparentColor = System.Drawing.Color.Magenta
+        Me.UpdateButton.Name = "UpdateButton"
+        Me.UpdateButton.Size = New System.Drawing.Size(131, 20)
+        Me.UpdateButton.Text = "Check for Update"
+        Me.UpdateButton.TextDirection = System.Windows.Forms.ToolStripTextDirection.Horizontal
         '
         'CheckForUpdatesToolStripMenuItem
         '
-        Me.CheckForUpdatesToolStripMenuItem.Enabled = False
         Me.CheckForUpdatesToolStripMenuItem.Name = "CheckForUpdatesToolStripMenuItem"
         Me.CheckForUpdatesToolStripMenuItem.Size = New System.Drawing.Size(245, 22)
         Me.CheckForUpdatesToolStripMenuItem.Text = "Automatically check for updates"
-        '
-        'UpdateKSPMMReloadedToolStripMenuItem
-        '
-        Me.UpdateKSPMMReloadedToolStripMenuItem.Name = "UpdateKSPMMReloadedToolStripMenuItem"
-        Me.UpdateKSPMMReloadedToolStripMenuItem.Size = New System.Drawing.Size(245, 22)
-        Me.UpdateKSPMMReloadedToolStripMenuItem.Text = "Update KSPMM Reloaded"
         '
         'Status
         '
@@ -119,6 +114,9 @@ Partial Class Main
         Me.tabctrlMain.TabIndex = 3
         Me.tabctrlMain.TabStop = False
         '
+        'StartupTimer
+        '
+        '
         'Main
         '
         Me.AutoScaleDimensions = New System.Drawing.SizeF(6.0!, 13.0!)
@@ -147,8 +145,8 @@ Partial Class Main
     Friend WithEvents EditToolStripMenuItem As System.Windows.Forms.ToolStripMenuItem
     Friend WithEvents tabctrlMain As System.Windows.Forms.TabControl
     Friend WithEvents ToolStripProgressBar1 As System.Windows.Forms.ToolStripProgressBar
-    Friend WithEvents ToolStripSplitButton1 As System.Windows.Forms.ToolStripSplitButton
+    Friend WithEvents UpdateButton As System.Windows.Forms.ToolStripSplitButton
     Friend WithEvents CheckForUpdatesToolStripMenuItem As System.Windows.Forms.ToolStripMenuItem
-    Friend WithEvents UpdateKSPMMReloadedToolStripMenuItem As System.Windows.Forms.ToolStripMenuItem
+    Friend WithEvents StartupTimer As System.Windows.Forms.Timer
 
 End Class

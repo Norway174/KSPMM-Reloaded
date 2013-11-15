@@ -6,7 +6,9 @@ Namespace Internal
                 Dim list As IPlugin() = {Internal.Startup.Plugin, _
                                          Internal.Network.Plugin, _
                                          Internal.ModIO.Plugin, _
-                                         Internal.Settings.Plugin}
+                                         Internal.Settings.Plugin, _
+                                         Internal.Overpass.Plugin}
+                ' Internal.Overpass.Plugin}
                 Return list
             End Get
         End Property

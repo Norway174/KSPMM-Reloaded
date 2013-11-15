@@ -53,3 +53,20 @@ D:\Users\obicj.KARDINIA\Documents\GitHub\KSPMM-Reloaded\KSPMM Reloaded\bin\Debug
 D:\Users\obicj.KARDINIA\Documents\GitHub\KSPMM-Reloaded\KSPMM Reloaded\obj\Debug\KSPMM Reloaded.exe
 D:\Users\obicj.KARDINIA\Documents\GitHub\KSPMM-Reloaded\KSPMM Reloaded\obj\Debug\KSPMM Reloaded.xml
 D:\Users\obicj.KARDINIA\Documents\GitHub\KSPMM-Reloaded\KSPMM Reloaded\obj\Debug\KSPMM Reloaded.pdb
+D:\Users\obicj.KARDINIA\Documents\GitHub\KSPMM-Reloaded\KSPMM Reloaded\bin\Debug\KSPMM Reloaded.exe
+D:\Users\obicj.KARDINIA\Documents\GitHub\KSPMM-Reloaded\KSPMM Reloaded\bin\Debug\KSPMM Reloaded.pdb
+D:\Users\obicj.KARDINIA\Documents\GitHub\KSPMM-Reloaded\KSPMM Reloaded\bin\Debug\KSPMM Reloaded.xml
+D:\Users\obicj.KARDINIA\Documents\GitHub\KSPMM-Reloaded\KSPMM Reloaded\bin\Debug\BasicUFL.dll
+D:\Users\obicj.KARDINIA\Documents\GitHub\KSPMM-Reloaded\KSPMM Reloaded\bin\Debug\Ionic.Zip.dll
+D:\Users\obicj.KARDINIA\Documents\GitHub\KSPMM-Reloaded\KSPMM Reloaded\obj\Debug\KSPMM Reloaded.vbprojResolveAssemblyReference.cache
+D:\Users\obicj.KARDINIA\Documents\GitHub\KSPMM-Reloaded\KSPMM Reloaded\obj\Debug\KSPMM_Reloaded.Core.resources
+D:\Users\obicj.KARDINIA\Documents\GitHub\KSPMM-Reloaded\KSPMM Reloaded\obj\Debug\KSPMM_Reloaded.ModIO_UC.resources
+D:\Users\obicj.KARDINIA\Documents\GitHub\KSPMM-Reloaded\KSPMM Reloaded\obj\Debug\KSPMM_Reloaded.NetworkDownload_UC.resources
+D:\Users\obicj.KARDINIA\Documents\GitHub\KSPMM-Reloaded\KSPMM Reloaded\obj\Debug\KSPMM_Reloaded.Network_UC.resources
+D:\Users\obicj.KARDINIA\Documents\GitHub\KSPMM-Reloaded\KSPMM Reloaded\obj\Debug\KSPMM_Reloaded.Settings_UC.resources
+D:\Users\obicj.KARDINIA\Documents\GitHub\KSPMM-Reloaded\KSPMM Reloaded\obj\Debug\KSPMM_Reloaded.Startup_UC.resources
+D:\Users\obicj.KARDINIA\Documents\GitHub\KSPMM-Reloaded\KSPMM Reloaded\obj\Debug\KSPMM_Reloaded.Main.resources
+D:\Users\obicj.KARDINIA\Documents\GitHub\KSPMM-Reloaded\KSPMM Reloaded\obj\Debug\KSPMM_Reloaded.Resources.resources
+D:\Users\obicj.KARDINIA\Documents\GitHub\KSPMM-Reloaded\KSPMM Reloaded\obj\Debug\KSPMM_Reloaded.Updater.resources
+D:\Users\obicj.KARDINIA\Documents\GitHub\KSPMM-Reloaded\KSPMM Reloaded\obj\Debug\KSPMM Reloaded.vbproj.GenerateResource.Cache
+d:\Users\obicj.KARDINIA\Documents\GitHub\KSPMM-Reloaded\KSPMM Reloaded\obj\Debug\KSPMM_Reloaded.Overpass_UC.resources

@@ -14,6 +14,10 @@
         Public Sub Start() Handles Me.Startup
             Dim c As New Core(Nothing, Plugin.PluginType.RuntimeStartup)
         End Sub
+        Public Sub AppStop() Handles Me.Shutdown
+            My.Settings.Save()
+        End Sub
+
     End Class
 
 

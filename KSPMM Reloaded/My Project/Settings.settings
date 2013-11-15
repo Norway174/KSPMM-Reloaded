@@ -5,10 +5,13 @@
     <Setting Name="Settings" Type="System.Collections.ArrayList" Scope="User">
       <Value Profile="(Default)" />
     </Setting>
-    <Setting Name="Mods" Type="System.Collections.ArrayList" Scope="User">
+    <Setting Name="AutoUpdate" Type="System.Boolean" Scope="User">
+      <Value Profile="(Default)">True</Value>
+    </Setting>
+    <Setting Name="KSPDir" Type="System.String" Scope="User">
       <Value Profile="(Default)" />
     </Setting>
-    <Setting Name="ModFileNames" Type="System.Collections.ArrayList" Scope="User">
+    <Setting Name="Mods" Type="System.Collections.ArrayList" Scope="User">
       <Value Profile="(Default)" />
     </Setting>
   </Settings>
