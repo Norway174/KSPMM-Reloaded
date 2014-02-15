@@ -10,14 +10,14 @@
     End Sub
     Public Sub LoadPlugin(ByVal _Plugin As Plugin, ByRef TabControl As TabControl)
         Select Case _Plugin.TypeOfPlugin
-            Case KSPMM_Reloaded.Plugin.PluginType.TabbedUserControl
+            Case Plugin.PluginType.TabbedUserControl
                 Dim tab As New TabPage()
                 tab.Controls.Add(_Plugin.Control)
                 tab.Controls(0).Dock = DockStyle.Fill
                 tab.AutoScroll = True
                 tab.Text = _Plugin.Name
                 Main.tabctrlMain.TabPages.Add(tab)
-            Case KSPMM_Reloaded.Plugin.PluginType.RuntimeStartup
+            Case Plugin.PluginType.RuntimeStartup
                 _Plugin.MainDelegate.Invoke()
             Case Plugin.PluginType.MainFormStartup
                 _Plugin.MainDelegate.Invoke()

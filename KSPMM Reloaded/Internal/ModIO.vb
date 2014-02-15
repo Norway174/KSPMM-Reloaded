@@ -20,7 +20,7 @@ Namespace Internal
         Public Sub AddMod(ByVal Modification As Modification)
             Modification.Index = Mods.Count
             Mods.Add(Modification)
-            SaveModsToSettings()
+            SaveModsToSettings(Mods)
             UC.RebuildTree()
         End Sub
         Public Function CheckIfStructureSupported(ByVal Modification As Modification) As Boolean
@@ -37,25 +37,28 @@ Namespace Internal
         End Function
         Public Sub RemoveMod(ByVal Modification As Modification)
             Mods.Remove(Modification)
-            SaveModsToSettings()
+            SaveModsToSettings(Mods)
             UC.RebuildTree()
         End Sub
         Public Function LoadModsFromSettings() As List(Of Modification)
             'Return Settings.ObtainSetting("Mods").Setting(0)
-            Dim m As New List(Of Modification)
-            If My.Settings.Mods Is Nothing Then My.Settings.Mods = New ArrayList
-            For Each o As Object In My.Settings.Mods
-                m.Add(o)
-            Next
-            Return m
+            If My.Settings.Mods = "" Then
+                My.Settings.Mods = Settings.SaveSettings(New List(Of Modification))
+                My.Settings.Save()
+                Return New List(Of Modification)
+            End If
+            Dim xml_serializer As New Xml.Serialization.XmlSerializer(GetType(List(Of Modification)))
+            Dim string_reader As New IO.StringReader(My.Settings.Mods)
+            Dim lel As List(Of Modification) = _
+                DirectCast(xml_serializer.Deserialize(string_reader),  _
+                    List(Of Modification))
+            string_reader.Close()
+            Return lel
+            'Return Settings.LoadSettings(My.Settings.Mods)
         End Function
-        Public Sub SaveModsToSettings()
+        Public Sub SaveModsToSettings(ByVal sett As List(Of Modification))
             'Settings.ChangeSettings(SettingMode.CreateorUpdate, New InternalSetting({Mods}, "Mods"))
-            Dim m As New ArrayList
-            For Each o As Object In Mods
-                m.Add(o)
-            Next
-            My.Settings.Mods = m
+            My.Settings.Mods = Settings.SaveSettings(sett)
             My.Settings.Save()
         End Sub
         Public Function LoadMods(ByVal KSPDir As String) As Boolean
@@ -97,6 +100,11 @@ Namespace Internal
             End Try
             Return False
         End Function
+
+        Private Sub SaveModsToSettings()
+            Throw New NotImplementedException
+        End Sub
+
     End Module
     Public Structure ModSelection
         Sub New(ByVal _ModEntryName As String, ByVal _Use As Boolean)
@@ -106,7 +114,10 @@ Namespace Internal
         Property Use As Boolean
         Property ModEntryName As String
     End Structure
+    <Serializable()> _
     Partial Public Class Modification
+        Sub New()
+        End Sub
         Sub New(ByVal Filename As String, ByVal Compression As Compression)
             _filename = Filename
             _comp = Compression

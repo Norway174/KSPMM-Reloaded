@@ -20,7 +20,10 @@
                 Return p
             End Get
         End Property
+        <Serializable()> _
         Public Class InternalSetting
+            Sub New()
+            End Sub
             Sub New(ByVal _Setting As Object(), ByVal _ID As String)
                 Setting = _Setting
                 ID = _ID
@@ -29,18 +32,14 @@
             Public Property Setting As Object()
         End Class
         Public Sub Startup()
-            If My.Settings.Settings Is Nothing Then
-                'MsgBox("settings is nothing")
-                My.Settings.Settings = New ArrayList()
-            Else
-                'MsgBox("settings isnt nothing, " & My.Settings.Settings.Count)
+            If My.Settings.Settings = "" Then
+                My.Settings.Settings = SaveSettings(New List(Of InternalSetting))
             End If
         End Sub
         Public Sub ChangeSettings(ByVal SettingMode As SettingMode, ByVal NewSetting As InternalSetting)
             SyncLock My.Settings.Settings
-                If My.Settings.Settings Is Nothing Then My.Settings.Settings = New ArrayList
-                Dim sett As New List(Of InternalSetting)
-                sett = LoadSettings(My.Settings.Settings)
+                'If My.Settings.Settings Is Nothing Then My.Settings.Settings = New ArrayList
+                Dim sett = LoadSettings(My.Settings.Settings)
                 Select Case SettingMode
                     Case Settings.SettingMode.CreateNew
                         For Each t As InternalSetting In sett
@@ -49,7 +48,8 @@
                                 Exit Sub
                             End If
                         Next
-                        My.Settings.Settings.Add(NewSetting)
+                        sett.Add(NewSetting)
+                        My.Settings.Settings = SaveSettings(sett)
                         My.Settings.Save()
                     Case Settings.SettingMode.Update
                         Dim i As Integer = 0
@@ -63,7 +63,7 @@
                             i += 1
                         Next
                         If e = False Then Throw New ArgumentException("Setting does not exist already")
-                        My.Settings.Settings = UnloadSettings(sett)
+                        My.Settings.Settings = SaveSettings(sett)
                         My.Settings.Save()
                     Case Settings.SettingMode.CreateorUpdate
                         Dim i As Integer = 0
@@ -77,8 +77,7 @@
                             i += 1
                         Next
                         If e = False Then sett.Add(NewSetting)
-                        Dim a = UnloadSettings(sett)
-                        My.Settings.Settings = a
+                        My.Settings.Settings = SaveSettings(sett)
                         My.Settings.Save()
                 End Select
             End SyncLock
@@ -93,20 +92,25 @@
             Next
             Return Nothing
         End Function
-        
-        Public Function LoadSettings(ByVal ArrayList As ArrayList) As List(Of InternalSetting)
-            Dim l As New List(Of InternalSetting)
-            For Each ll As Object In ArrayList
-                l.Add(ll)
-            Next
-            Return l
+
+        Public Function LoadSettings(ByVal settings As String) As List(Of InternalSetting)
+            Dim xml_serializer As New Xml.Serialization.XmlSerializer(GetType(List(Of InternalSetting)))
+            Dim string_reader As New IO.StringReader(settings)
+            Dim lel As List(Of InternalSetting) = _
+                DirectCast(xml_serializer.Deserialize(string_reader),  _
+                    List(Of InternalSetting))
+            string_reader.Close()
+            Return lel
         End Function
-        Public Function UnloadSettings(Of T)(ByVal List As List(Of T)) As ArrayList
-            Dim l As New ArrayList
-            For Each ll As T In List
-                l.Add(ll)
-            Next
-            Return l
+        Public Function SaveSettings(Of T)(ByVal List As List(Of T)) As String
+            Dim xml_serializer As New Xml.Serialization.XmlSerializer(GetType(List(Of T)))
+            Dim string_writer As New IO.StringWriter
+            xml_serializer.Serialize(string_writer, List)
+
+            Dim lel = string_writer.ToString()
+
+            string_writer.Close()
+            Return lel
         End Function
         Public Enum SettingMode
             CreateNew = 1
