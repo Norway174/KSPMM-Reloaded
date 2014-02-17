@@ -102,9 +102,12 @@ Partial Class ModIO_UC
         '
         Me.TreeView1.CheckBoxes = True
         Me.TreeView1.Dock = System.Windows.Forms.DockStyle.Fill
+        Me.TreeView1.ImageIndex = 0
+        Me.TreeView1.ImageList = Me.FileImageList
         Me.TreeView1.Location = New System.Drawing.Point(0, 25)
         Me.TreeView1.Name = "TreeView1"
         Me.TreeView1.PathSeparator = "/"
+        Me.TreeView1.SelectedImageIndex = 0
         Me.TreeView1.Size = New System.Drawing.Size(367, 198)
         Me.TreeView1.TabIndex = 1
         '

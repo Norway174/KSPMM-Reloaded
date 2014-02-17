@@ -42,11 +42,23 @@ Public Class ModIO_UC
     ' Next
     '     Next
     'End Sub
+    Public Sub RebuildTree()
+        For Each t As TreeNode In TreeView1.Nodes
+            Select Case Mods(t.Tag).Status
+                Case ModStatus.Uninstalled : t.ForeColor = Color.Black
+                Case ModStatus.Installed : t.ForeColor = Color.Green
+            End Select
+        Next
+    End Sub
     Public Sub BuildTree()
         TreeView1.Nodes.Clear()
         Dim i = 0
         For Each m As Modification In Mods
-            Dim t As New TreeNode(m.Filename, 0, 0)
+            Dim t As New TreeNode(m.Name, 0, 0)
+            Select Case m.Status
+                Case ModStatus.Uninstalled : t.ForeColor = Color.Black
+                Case ModStatus.Installed : t.ForeColor = Color.Green
+            End Select
             t.Tag = i
             t.Checked = m.Use
             TreeView1.Nodes.Add(t)
@@ -54,14 +66,20 @@ Public Class ModIO_UC
         Next
     End Sub
 
+    Public Sub StatusUpdate(ByVal Status As String)
+        lblStatus.Text = Status
+    End Sub
+
     Private Sub ToolStripButton1_Click(sender As Object, e As EventArgs) Handles btnAdd.Click
         Dim open As New OpenFileDialog
-        open.Filter = "Compressed ZIP Folders (*.zip)|*.zip|All Files (*.*)|*.*"
+        open.Filter = "KSPMM Mod Files (*.kspmm)|*.kspmm|Compressed ZIP Folders (*.zip)|*.zip|All Files (*.*)|*.*"
         open.FileName = ""
         If open.ShowDialog() = DialogResult.Cancel Or open.FileName = "" Then Exit Sub
         Dim f As New IO.FileInfo(open.FileName)
-        If f.Extension = ".zip" Or f.Extension = ".kspmm" Then
+        If f.Extension = ".zip" Then
             Internal.AddMod(New Internal.Modification(open.FileName, Internal.Compression.Zip))
+        ElseIf f.Extension = ".kspmm" Then
+            Internal.AddMod(New Internal.Modification(open.FileName, Internal.Compression.KSPMM))
         Else
             Internal.AddMod(New Internal.Modification(open.FileName, Internal.Compression.Other))
         End If
@@ -76,7 +94,7 @@ Public Class ModIO_UC
     End Sub
 
     Private Sub ToolStripButton4_Click(sender As Object, e As EventArgs) Handles btnUnload.Click
-        If Internal.UnloadMods() Then MsgBox("Unloading Complete!") Else MsgBox("Unloading Failed!", MsgBoxStyle.Critical)
+        If Internal.UnloadMods() Then StatusUpdate("Unloading Complete") Else MsgBox("Unloading Failed!", MsgBoxStyle.Critical)
     End Sub
 
     Private Sub ToolStripButton3_Click(sender As Object, e As EventArgs) Handles btnLoad.Click
@@ -109,7 +127,7 @@ Public Class ModIO_UC
         ' Next
         ' i += 1
         ' Next
-        If Internal.LoadMods(My.Settings.KSPDir) Then MsgBox("Loading Complete!") Else MsgBox("Loading Failed!", MsgBoxStyle.Critical)
+        If Internal.LoadMods(My.Settings.KSPDir) = False Then MsgBox("Loading Failed!", MsgBoxStyle.Critical)
     End Sub
 
     'Public Function GetChildren(parentNode As TreeNode) As List(Of ModSelection)

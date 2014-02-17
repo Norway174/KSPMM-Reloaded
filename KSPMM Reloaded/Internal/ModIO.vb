@@ -86,6 +86,7 @@ Namespace Internal
                 Try
                     Dim ii = 0
                     Using z As ZipFile = m.GetZipFile
+                        Dim b As Boolean = True
                         name = (KSPDir & "\GameData\" & z.Name.Remove(z.Name.LastIndexOf("."c)).Remove(0, z.Name.LastIndexOf("\"c) + 1))
                         Directory.CreateDirectory(name)
                         m.ModFolderExtracted = name
@@ -103,11 +104,13 @@ Namespace Internal
                                 UC.TreeView1.Nodes(i).ImageIndex = 9
                                 UC.TreeView1.Nodes(i).SelectedImageIndex = 9
                                 MsgBox(ex.Message, MsgBoxStyle.Critical)
+                                b = False
                                 Exit For
                             End Try
                             'End If
                             'Next
                             ii += 1
+                            If b = True Then m.Status = ModStatus.Installed
                         Next
                         'm.GetZipFile.ExtractAll(name, ExtractExistingFileAction.OverwriteSilently)
                     End Using
@@ -123,10 +126,11 @@ Namespace Internal
             Next
             Log("Complete")
             SaveModsToSettings(Mods)
+            UC.RebuildTree()
             Return True
         End Function
         Public Sub Log(ByVal NewLog As String)
-            UC.lblStatus.Text = NewLog
+            UC.StatusUpdate(NewLog)
         End Sub
         Public Function UnloadMods() As Boolean
             Try
@@ -135,15 +139,16 @@ Namespace Internal
                         Directory.Delete(m.ModFolderExtracted, True)
                         m.ModFolderExtracted = False
                     End If
+                    m.Status = ModStatus.Uninstalled
                 Next
                 SaveModsToSettings(Mods)
+                UC.RebuildTree()
                 Return True
             Catch ex As Exception
                 MsgBox(ex.Message, MsgBoxStyle.Critical)
             End Try
             Return False
         End Function
-
     End Module
     <Serializable()> _
     Partial Public Class Modification
@@ -151,9 +156,25 @@ Namespace Internal
         End Sub
         Sub New(ByVal _Filename As String, ByVal _Compression As Compression)
             Filename = _Filename
+            Name = _Filename
             Compression = _Compression
+            Status = ModStatus.Uninstalled
             Use = False
-            If Compression = Internal.Compression.Other Then Throw New NotImplementedException("Only ZIP supported at this time")
+            Select Case Compression
+                Case Internal.Compression.Zip
+                    
+                Case Internal.Compression.KSPMM
+                    Using z = GetZipFile()
+                        For Each e As ZipEntry In z.Entries
+                            If e.FileName = "info.xml" Then
+                                Dim i As New InfoParser(Misc.GetTextFromZipEntry(e))
+                                Name = i._nname
+                            End If
+                        Next
+                    End Using
+                Case Internal.Compression.Other
+                    Throw New NotImplementedException("Only ZIP supported at this time")
+            End Select
             'Using z As New ZipFile(_filename)
             'For Each e As ZipEntry In z.Entries
             'Dim m As New ModSelection
@@ -170,6 +191,9 @@ Namespace Internal
             Return New ZipFile(Filename)
         End Function
 
+        Public Property Name As String
+        Public Property Status As ModStatus
+
         Public Property Index As Integer
         Public Property ModFolderExtracted As String
 
@@ -178,6 +202,11 @@ Namespace Internal
     End Class
     Public Enum Compression
         Zip = 1
-        Other = 2
+        KSPMM = 2
+        Other = 3
+    End Enum
+    Public Enum ModStatus
+        Uninstalled = 0
+        Installed = 1
     End Enum
 End Namespace
