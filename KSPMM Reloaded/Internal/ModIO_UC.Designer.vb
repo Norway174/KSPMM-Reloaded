@@ -25,73 +25,78 @@ Partial Class ModIO_UC
         Me.components = New System.ComponentModel.Container()
         Dim resources As System.ComponentModel.ComponentResourceManager = New System.ComponentModel.ComponentResourceManager(GetType(ModIO_UC))
         Me.ToolStrip1 = New System.Windows.Forms.ToolStrip()
-        Me.ToolStripButton1 = New System.Windows.Forms.ToolStripButton()
-        Me.ToolStripButton2 = New System.Windows.Forms.ToolStripButton()
-        Me.ToolStripButton3 = New System.Windows.Forms.ToolStripButton()
-        Me.ToolStripButton4 = New System.Windows.Forms.ToolStripButton()
-        Me.ToolStripButton5 = New System.Windows.Forms.ToolStripButton()
+        Me.btnAdd = New System.Windows.Forms.ToolStripButton()
+        Me.btnRemove = New System.Windows.Forms.ToolStripButton()
+        Me.btnLoad = New System.Windows.Forms.ToolStripButton()
+        Me.btnUnload = New System.Windows.Forms.ToolStripButton()
+        Me.btnLocate = New System.Windows.Forms.ToolStripButton()
         Me.TreeView1 = New System.Windows.Forms.TreeView()
         Me.FileImageList = New System.Windows.Forms.ImageList(Me.components)
+        Me.StatusStrip1 = New System.Windows.Forms.StatusStrip()
+        Me.prgOverall = New System.Windows.Forms.ToolStripProgressBar()
+        Me.prgIndividual = New System.Windows.Forms.ToolStripProgressBar()
+        Me.lblStatus = New System.Windows.Forms.ToolStripStatusLabel()
         Me.ToolStrip1.SuspendLayout()
+        Me.StatusStrip1.SuspendLayout()
         Me.SuspendLayout()
         '
         'ToolStrip1
         '
-        Me.ToolStrip1.Items.AddRange(New System.Windows.Forms.ToolStripItem() {Me.ToolStripButton1, Me.ToolStripButton2, Me.ToolStripButton3, Me.ToolStripButton4, Me.ToolStripButton5})
+        Me.ToolStrip1.Items.AddRange(New System.Windows.Forms.ToolStripItem() {Me.btnAdd, Me.btnRemove, Me.btnLoad, Me.btnUnload, Me.btnLocate})
         Me.ToolStrip1.Location = New System.Drawing.Point(0, 0)
         Me.ToolStrip1.Name = "ToolStrip1"
         Me.ToolStrip1.Size = New System.Drawing.Size(367, 25)
         Me.ToolStrip1.TabIndex = 0
         Me.ToolStrip1.Text = "ToolStrip1"
         '
-        'ToolStripButton1
+        'btnAdd
         '
-        Me.ToolStripButton1.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image
-        Me.ToolStripButton1.Image = CType(resources.GetObject("ToolStripButton1.Image"), System.Drawing.Image)
-        Me.ToolStripButton1.ImageTransparentColor = System.Drawing.Color.Magenta
-        Me.ToolStripButton1.Name = "ToolStripButton1"
-        Me.ToolStripButton1.Size = New System.Drawing.Size(23, 22)
-        Me.ToolStripButton1.Text = "ToolStripButton1"
-        Me.ToolStripButton1.ToolTipText = "Add Mod"
+        Me.btnAdd.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image
+        Me.btnAdd.Image = CType(resources.GetObject("btnAdd.Image"), System.Drawing.Image)
+        Me.btnAdd.ImageTransparentColor = System.Drawing.Color.Magenta
+        Me.btnAdd.Name = "btnAdd"
+        Me.btnAdd.Size = New System.Drawing.Size(23, 22)
+        Me.btnAdd.Text = "Add Mod"
+        Me.btnAdd.ToolTipText = "Add Mod"
         '
-        'ToolStripButton2
+        'btnRemove
         '
-        Me.ToolStripButton2.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image
-        Me.ToolStripButton2.Image = CType(resources.GetObject("ToolStripButton2.Image"), System.Drawing.Image)
-        Me.ToolStripButton2.ImageTransparentColor = System.Drawing.Color.Magenta
-        Me.ToolStripButton2.Name = "ToolStripButton2"
-        Me.ToolStripButton2.Size = New System.Drawing.Size(23, 22)
-        Me.ToolStripButton2.Text = "ToolStripButton2"
-        Me.ToolStripButton2.ToolTipText = "Remove Mod"
+        Me.btnRemove.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image
+        Me.btnRemove.Image = CType(resources.GetObject("btnRemove.Image"), System.Drawing.Image)
+        Me.btnRemove.ImageTransparentColor = System.Drawing.Color.Magenta
+        Me.btnRemove.Name = "btnRemove"
+        Me.btnRemove.Size = New System.Drawing.Size(23, 22)
+        Me.btnRemove.Text = "Remove Mod"
+        Me.btnRemove.ToolTipText = "Remove Mod"
         '
-        'ToolStripButton3
+        'btnLoad
         '
-        Me.ToolStripButton3.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image
-        Me.ToolStripButton3.Image = CType(resources.GetObject("ToolStripButton3.Image"), System.Drawing.Image)
-        Me.ToolStripButton3.ImageTransparentColor = System.Drawing.Color.Magenta
-        Me.ToolStripButton3.Name = "ToolStripButton3"
-        Me.ToolStripButton3.Size = New System.Drawing.Size(23, 22)
-        Me.ToolStripButton3.Text = "ToolStripButton3"
-        Me.ToolStripButton3.ToolTipText = "Load Mods"
+        Me.btnLoad.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image
+        Me.btnLoad.Image = CType(resources.GetObject("btnLoad.Image"), System.Drawing.Image)
+        Me.btnLoad.ImageTransparentColor = System.Drawing.Color.Magenta
+        Me.btnLoad.Name = "btnLoad"
+        Me.btnLoad.Size = New System.Drawing.Size(23, 22)
+        Me.btnLoad.Text = "Load Mods"
+        Me.btnLoad.ToolTipText = "Load Mods"
         '
-        'ToolStripButton4
+        'btnUnload
         '
-        Me.ToolStripButton4.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image
-        Me.ToolStripButton4.Image = CType(resources.GetObject("ToolStripButton4.Image"), System.Drawing.Image)
-        Me.ToolStripButton4.ImageTransparentColor = System.Drawing.Color.Magenta
-        Me.ToolStripButton4.Name = "ToolStripButton4"
-        Me.ToolStripButton4.Size = New System.Drawing.Size(23, 22)
-        Me.ToolStripButton4.Text = "ToolStripButton4"
-        Me.ToolStripButton4.ToolTipText = "Unload Mods"
+        Me.btnUnload.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image
+        Me.btnUnload.Image = CType(resources.GetObject("btnUnload.Image"), System.Drawing.Image)
+        Me.btnUnload.ImageTransparentColor = System.Drawing.Color.Magenta
+        Me.btnUnload.Name = "btnUnload"
+        Me.btnUnload.Size = New System.Drawing.Size(23, 22)
+        Me.btnUnload.Text = "Unload Mods"
+        Me.btnUnload.ToolTipText = "Unload Mods"
         '
-        'ToolStripButton5
+        'btnLocate
         '
-        Me.ToolStripButton5.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image
-        Me.ToolStripButton5.Image = CType(resources.GetObject("ToolStripButton5.Image"), System.Drawing.Image)
-        Me.ToolStripButton5.ImageTransparentColor = System.Drawing.Color.Magenta
-        Me.ToolStripButton5.Name = "ToolStripButton5"
-        Me.ToolStripButton5.Size = New System.Drawing.Size(23, 22)
-        Me.ToolStripButton5.Text = "Locate KSP Folder"
+        Me.btnLocate.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image
+        Me.btnLocate.Image = CType(resources.GetObject("btnLocate.Image"), System.Drawing.Image)
+        Me.btnLocate.ImageTransparentColor = System.Drawing.Color.Magenta
+        Me.btnLocate.Name = "btnLocate"
+        Me.btnLocate.Size = New System.Drawing.Size(23, 22)
+        Me.btnLocate.Text = "Locate KSP Folder"
         '
         'TreeView1
         '
@@ -100,7 +105,7 @@ Partial Class ModIO_UC
         Me.TreeView1.Location = New System.Drawing.Point(0, 25)
         Me.TreeView1.Name = "TreeView1"
         Me.TreeView1.PathSeparator = "/"
-        Me.TreeView1.Size = New System.Drawing.Size(367, 220)
+        Me.TreeView1.Size = New System.Drawing.Size(367, 198)
         Me.TreeView1.TabIndex = 1
         '
         'FileImageList
@@ -112,6 +117,37 @@ Partial Class ModIO_UC
         Me.FileImageList.Images.SetKeyName(2, "document.png")
         Me.FileImageList.Images.SetKeyName(3, "document-text.png")
         Me.FileImageList.Images.SetKeyName(4, "script-text.png")
+        Me.FileImageList.Images.SetKeyName(5, "bullet_green.png")
+        Me.FileImageList.Images.SetKeyName(6, "bullet_go.png")
+        Me.FileImageList.Images.SetKeyName(7, "arrow_down.png")
+        Me.FileImageList.Images.SetKeyName(8, "accept.png")
+        Me.FileImageList.Images.SetKeyName(9, "error.png")
+        Me.FileImageList.Images.SetKeyName(10, "cancel.png")
+        '
+        'StatusStrip1
+        '
+        Me.StatusStrip1.Items.AddRange(New System.Windows.Forms.ToolStripItem() {Me.prgOverall, Me.prgIndividual, Me.lblStatus})
+        Me.StatusStrip1.Location = New System.Drawing.Point(0, 223)
+        Me.StatusStrip1.Name = "StatusStrip1"
+        Me.StatusStrip1.Size = New System.Drawing.Size(367, 22)
+        Me.StatusStrip1.TabIndex = 2
+        Me.StatusStrip1.Text = "StatusStrip1"
+        '
+        'prgOverall
+        '
+        Me.prgOverall.Name = "prgOverall"
+        Me.prgOverall.Size = New System.Drawing.Size(100, 16)
+        '
+        'prgIndividual
+        '
+        Me.prgIndividual.Name = "prgIndividual"
+        Me.prgIndividual.Size = New System.Drawing.Size(100, 16)
+        '
+        'lblStatus
+        '
+        Me.lblStatus.Name = "lblStatus"
+        Me.lblStatus.Size = New System.Drawing.Size(26, 17)
+        Me.lblStatus.Text = "Idle"
         '
         'ModIO_UC
         '
@@ -119,10 +155,13 @@ Partial Class ModIO_UC
         Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font
         Me.Controls.Add(Me.TreeView1)
         Me.Controls.Add(Me.ToolStrip1)
+        Me.Controls.Add(Me.StatusStrip1)
         Me.Name = "ModIO_UC"
         Me.Size = New System.Drawing.Size(367, 245)
         Me.ToolStrip1.ResumeLayout(False)
         Me.ToolStrip1.PerformLayout()
+        Me.StatusStrip1.ResumeLayout(False)
+        Me.StatusStrip1.PerformLayout()
         Me.ResumeLayout(False)
         Me.PerformLayout()
 
@@ -130,10 +169,14 @@ Partial Class ModIO_UC
     Friend WithEvents ToolStrip1 As System.Windows.Forms.ToolStrip
     Friend WithEvents TreeView1 As System.Windows.Forms.TreeView
     Friend WithEvents FileImageList As System.Windows.Forms.ImageList
-    Friend WithEvents ToolStripButton1 As System.Windows.Forms.ToolStripButton
-    Friend WithEvents ToolStripButton2 As System.Windows.Forms.ToolStripButton
-    Friend WithEvents ToolStripButton3 As System.Windows.Forms.ToolStripButton
-    Friend WithEvents ToolStripButton4 As System.Windows.Forms.ToolStripButton
-    Friend WithEvents ToolStripButton5 As System.Windows.Forms.ToolStripButton
+    Friend WithEvents btnAdd As System.Windows.Forms.ToolStripButton
+    Friend WithEvents btnRemove As System.Windows.Forms.ToolStripButton
+    Friend WithEvents btnLoad As System.Windows.Forms.ToolStripButton
+    Friend WithEvents btnUnload As System.Windows.Forms.ToolStripButton
+    Friend WithEvents btnLocate As System.Windows.Forms.ToolStripButton
+    Friend WithEvents StatusStrip1 As System.Windows.Forms.StatusStrip
+    Friend WithEvents prgOverall As System.Windows.Forms.ToolStripProgressBar
+    Friend WithEvents lblStatus As System.Windows.Forms.ToolStripStatusLabel
+    Friend WithEvents prgIndividual As System.Windows.Forms.ToolStripProgressBar
 
 End Class

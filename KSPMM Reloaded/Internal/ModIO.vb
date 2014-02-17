@@ -21,7 +21,7 @@ Namespace Internal
             Modification.Index = Mods.Count
             Mods.Add(Modification)
             SaveModsToSettings(Mods)
-            UC.RebuildTree()
+            UC.BuildTree()
         End Sub
         Public Function CheckIfStructureSupported(ByVal Modification As Modification) As Boolean
             Using z As New ZipFile(Modification.Filename)
@@ -38,7 +38,7 @@ Namespace Internal
         Public Sub RemoveMod(ByVal Modification As Modification)
             Mods.Remove(Modification)
             SaveModsToSettings(Mods)
-            UC.RebuildTree()
+            UC.BuildTree()
         End Sub
         Public Function LoadModsFromSettings() As List(Of Modification)
             'Return Settings.ObtainSetting("Mods").Setting(0)
@@ -62,38 +62,81 @@ Namespace Internal
             My.Settings.Save()
         End Sub
         Public Function LoadMods(ByVal KSPDir As String) As Boolean
-            Try
-                For Each m As Modification In Mods
+            Dim i = 0
+            Log("Initiallizing...")
+            For Each m As Modification In Mods
+                UC.TreeView1.Nodes(i).ImageIndex = 5
+                UC.TreeView1.Nodes(i).SelectedImageIndex = 5
+            Next
+            i = 0
+            For Each m As Modification In Mods
+                UC.prgOverall.Maximum = Mods.Count
+                UC.prgOverall.Value = i + 1
+                If m.Use Then
+                    Log("Loading " & m.Filename.Remove(0, m.Filename.LastIndexOf("\"c) + 1))
+                    UC.TreeView1.Nodes(i).ImageIndex = 6
+                    UC.TreeView1.Nodes(i).SelectedImageIndex = 6
+                Else
+                    Log("Ignoring " & m.Filename.Remove(0, m.Filename.LastIndexOf("\"c) + 1))
+                    UC.TreeView1.Nodes(i).ImageIndex = 7
+                    UC.TreeView1.Nodes(i).SelectedImageIndex = 7
+                    Continue For
+                End If
+                Dim name = ""
+                Try
+                    Dim ii = 0
                     Using z As ZipFile = m.GetZipFile
-                        Dim name As String = (KSPDir & "\GameData\" & z.Name.Remove(z.Name.LastIndexOf("."c)).Remove(0, z.Name.LastIndexOf("\"c) + 1))
+                        name = (KSPDir & "\GameData\" & z.Name.Remove(z.Name.LastIndexOf("."c)).Remove(0, z.Name.LastIndexOf("\"c) + 1))
                         Directory.CreateDirectory(name)
                         m.ModFolderExtracted = name
                         For Each entry As ZipEntry In z.Entries
-                            For Each e As ModSelection In m.ModSelections
-                                If entry.FileName = e.ModEntryName AndAlso e.Use Then
-                                    entry.Extract(name, ExtractExistingFileAction.OverwriteSilently)
-                                End If
-                            Next
+                            UC.prgIndividual.Maximum = z.Entries.Count
+                            UC.prgIndividual.Value = ii + 1
+                            'For Each e As ModSelection In m.ModSelections
+                            'If entry.FileName = e.ModEntryName AndAlso e.Use Then
+                            Log("Extracting " & entry.FileName)
+                            Try
+                                entry.Extract(name, ExtractExistingFileAction.Throw)
+                            Catch ex As Exception
+                                Log("Failed: File already exists")
+                                Directory.Delete(name)
+                                UC.TreeView1.Nodes(i).ImageIndex = 9
+                                UC.TreeView1.Nodes(i).SelectedImageIndex = 9
+                                MsgBox(ex.Message, MsgBoxStyle.Critical)
+                                Exit For
+                            End Try
+                            'End If
+                            'Next
+                            ii += 1
                         Next
                         'm.GetZipFile.ExtractAll(name, ExtractExistingFileAction.OverwriteSilently)
                     End Using
-                Next
-                SaveModsToSettings()
-                Return True
-            Catch ex As Exception
-                MsgBox(ex.Message, MsgBoxStyle.Critical)
-            End Try
-            Return False
+                    UC.TreeView1.Nodes(i).ImageIndex = 8
+                    UC.TreeView1.Nodes(i).SelectedImageIndex = 8
+                Catch ex As Exception
+                    Directory.Delete(name)
+                    UC.TreeView1.Nodes(i).ImageIndex = 10
+                    UC.TreeView1.Nodes(i).SelectedImageIndex = 10
+                    MsgBox(ex.Message, MsgBoxStyle.Critical)
+                End Try
+                i += 1
+            Next
+            Log("Complete")
+            SaveModsToSettings(Mods)
+            Return True
         End Function
+        Public Sub Log(ByVal NewLog As String)
+            UC.lblStatus.Text = NewLog
+        End Sub
         Public Function UnloadMods() As Boolean
             Try
                 For Each m As Modification In Mods
                     If Directory.Exists(m.ModFolderExtracted) Then
                         Directory.Delete(m.ModFolderExtracted, True)
-                        m.ModFolderExtracted = True
+                        m.ModFolderExtracted = False
                     End If
                 Next
-                SaveModsToSettings()
+                SaveModsToSettings(Mods)
                 Return True
             Catch ex As Exception
                 MsgBox(ex.Message, MsgBoxStyle.Critical)
@@ -101,37 +144,27 @@ Namespace Internal
             Return False
         End Function
 
-        Private Sub SaveModsToSettings()
-            Throw New NotImplementedException
-        End Sub
-
     End Module
-    Public Structure ModSelection
-        Sub New(ByVal _ModEntryName As String, ByVal _Use As Boolean)
-            ModEntryName = _ModEntryName
-            Use = _Use
-        End Sub
-        Property Use As Boolean
-        Property ModEntryName As String
-    End Structure
     <Serializable()> _
     Partial Public Class Modification
         Sub New()
         End Sub
-        Sub New(ByVal Filename As String, ByVal Compression As Compression)
-            _filename = Filename
-            _comp = Compression
-            Using z As New ZipFile(_filename)
-                For Each e As ZipEntry In z.Entries
-                    Dim m As New ModSelection
-                    m.ModEntryName = e.FileName
-                    m.Use = False
-                    ModSelections.Add(m)
-                Next
-            End Using
+        Sub New(ByVal _Filename As String, ByVal _Compression As Compression)
+            Filename = _Filename
+            Compression = _Compression
+            Use = False
+            If Compression = Internal.Compression.Other Then Throw New NotImplementedException("Only ZIP supported at this time")
+            'Using z As New ZipFile(_filename)
+            'For Each e As ZipEntry In z.Entries
+            'Dim m As New ModSelection
+            'm.ModEntryName = e.FileName
+            'm.Use = False
+            'ModSelections.Add(m)
+            'Next
+            'End Using
         End Sub
-
-        Public Property ModSelections As New List(Of ModSelection)
+        Public Property Use As Boolean
+        'Public Property ModSelections As New List(Of ModSelection)
 
         Public Function GetZipFile() As ZipFile
             Return New ZipFile(Filename)
@@ -140,158 +173,11 @@ Namespace Internal
         Public Property Index As Integer
         Public Property ModFolderExtracted As String
 
-        Private _comp As Compression
-        Public ReadOnly Property Compression As Compression
-            Get
-                Return _comp
-            End Get
-        End Property
-
-        Private _filename As String
-        Public ReadOnly Property Filename As String
-            Get
-                Return _filename
-            End Get
-        End Property
+        Public Property Compression As Compression
+        Public Property Filename As String
     End Class
     Public Enum Compression
         Zip = 1
         Other = 2
     End Enum
 End Namespace
-#Region "Beta"
-Namespace Internal.BrokenBeta
-    Public Module ModIO
-        Public Mods As New List(Of Modification)
-        Public Sub LoadMod(ByVal Modification As Modification)
-            Mods.Add(Modification)
-        End Sub
-        Public Sub RemoveMod(ByVal Modification As Modification)
-            Mods.Remove(Modification)
-        End Sub
-    End Module
-    Public Class Modification
-        Implements IDisposable
-
-        Private UsedNames As New List(Of String)
-
-        Sub New(ByVal Filename As String, ByVal Compression As Compression, Optional ByVal LoadIntoMemory As Boolean = False)
-            _filename = Filename
-            _comp = Compression
-            If LoadIntoMemory Then
-                Dim read As ULong = 0
-                Dim stream As New FileStream(Filename, FileMode.Open)
-                Do
-                    Dim buffer(4095) As Byte
-                    Dim count As Integer = stream.Read(buffer, 0, 4096)
-                    If count = 0 Then Exit Do
-                    Array.Resize(_bytes, _bytes.Count + count)
-                    read += count
-                Loop
-                stream.Close()
-                _mem = True
-            Else
-
-            End If
-        End Sub
-        Sub New(ByVal ByteArray As Byte())
-            Array.Resize(_bytes, ByteArray.Count)
-            _bytes = ByteArray
-            _mem = True
-        End Sub
-
-        Public Function GetZipFile() As ZipFile
-            Dim s As String
-            If isLoadedIntoMemory Then
-                s = getNewTempName()
-                Dim st As New FileStream(s, FileMode.CreateNew)
-                st.Write(ByteArray, 0, ByteArray.Count)
-            Else
-                s = Filename
-            End If
-            Return New ZipFile(s)
-        End Function
-
-        Private Function getNewTempName() As String
-            Dim constn As String = My.Computer.FileSystem.SpecialDirectories.Temp & "\KSPMM Reloaded\temp_"
-            For i = 0 To Integer.MaxValue
-                If File.Exists(constn & i.ToString) = False Then
-                    UsedNames.Add(constn & i.ToString)
-                    Return constn & i.ToString
-                End If
-            Next
-            Return Nothing
-        End Function
-
-        Private _bytes(0) As Byte
-        Public ReadOnly Property ByteArray As Byte()
-            Get
-                Return _bytes
-            End Get
-        End Property
-
-        Private _comp As Compression
-        Public ReadOnly Property Compression As Compression
-            Get
-                Return _comp
-            End Get
-        End Property
-
-        Private _mem As Boolean = False
-        Public ReadOnly Property isLoadedIntoMemory As Boolean
-            Get
-                Return _mem
-            End Get
-        End Property
-
-        Private _filename As String
-        Public ReadOnly Property Filename As String
-            Get
-                Return _filename
-            End Get
-        End Property
-
-#Region "IDisposable Support"
-        Private disposedValue As Boolean ' To detect redundant calls
-
-        ' IDisposable
-        Protected Overridable Sub Dispose(disposing As Boolean)
-            If Not Me.disposedValue Then
-                If disposing Then
-                    ' TODO: dispose managed state (managed objects).
-                    For Each d As String In UsedNames
-                        If File.Exists(d) Then
-                            File.Delete(d)
-                        End If
-                    Next
-                End If
-
-                ' TODO: free unmanaged resources (unmanaged objects) and override Finalize() below.
-                ' TODO: set large fields to null.
-                _bytes = Nothing
-            End If
-            Me.disposedValue = True
-        End Sub
-
-        ' TODO: override Finalize() only if Dispose(ByVal disposing As Boolean) above has code to free unmanaged resources.
-        'Protected Overrides Sub Finalize()
-        '    ' Do not change this code.  Put cleanup code in Dispose(ByVal disposing As Boolean) above.
-        '    Dispose(False)
-        '    MyBase.Finalize()
-        'End Sub
-
-        ' This code added by Visual Basic to correctly implement the disposable pattern.
-        Public Sub Dispose() Implements IDisposable.Dispose
-            ' Do not change this code.  Put cleanup code in Dispose(disposing As Boolean) above.
-            Dispose(True)
-            GC.SuppressFinalize(Me)
-        End Sub
-#End Region
-
-    End Class
-    Public Enum Compression
-        Zip = 1
-        Other = 2
-    End Enum
-End Namespace
-#End Region

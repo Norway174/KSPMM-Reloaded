@@ -44,6 +44,7 @@ Namespace Internal
             _downloads -= 1
             RaiseEvent CheckDownload(Download)
             CheckDownloads()
+
         End Sub
         Public Sub DownloadReady(ByVal Download As Download)
             RaiseEvent CheckDownload(Download)
@@ -167,6 +168,7 @@ Namespace Internal
         Private Timer As New Stopwatch
         Private _Stop As Boolean = False
         Private _Pause As Boolean = False
+        Public Property InstallOnDownloadCompletion As Boolean = False
         Public ReadOnly Property NetworkStream As Stream
             Get
                 Return Response.GetResponseStream
@@ -178,9 +180,10 @@ Namespace Internal
             End Get
         End Property
 
-        Sub New(ByVal URI As Uri, ByVal DownloadLocation As String, Optional Priority As Priority = Priority.Normal)
+        Sub New(ByVal URI As Uri, ByVal InstallWhenDownloaded As Boolean, ByVal DownloadLocation As String, Optional Priority As Priority = Priority.Normal)
             RaiseEvent StatusChange("Idle")
             Try
+                InstallOnDownloadCompletion = InstallWhenDownloaded
                 _URI = URI
                 _Priority = Priority
                 _Stream = New FileStream(DownloadLocation, FileMode.OpenOrCreate, FileAccess.ReadWrite, FileShare.None)
@@ -194,7 +197,7 @@ Namespace Internal
                     _Failed = True
                     Exit Sub
                 Catch ex1 As Exception
-                    RaiseEvent Complete(Me, False, 0)
+                    RaiseEvent Complete(Me, False, -9001)
                     RaiseEvent StatusChange("Failed")
                     _Failed = True
                     Exit Sub

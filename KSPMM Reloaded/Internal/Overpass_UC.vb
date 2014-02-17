@@ -30,9 +30,12 @@
     End Sub
 
     Private Sub OverpassWebBrowser_ProgressChanged(sender As Object, e As WebBrowserProgressChangedEventArgs) Handles OverpassWebBrowser.ProgressChanged
-        ToolStripProgressBar1.Maximum = e.MaximumProgress
-        ToolStripProgressBar1.Value = e.CurrentProgress
-        ToolStripStatusLabel1.Text = OverpassWebBrowser.StatusText
+        Try
+            ToolStripProgressBar1.Maximum = e.MaximumProgress
+            ToolStripProgressBar1.Value = e.CurrentProgress
+            ToolStripStatusLabel1.Text = OverpassWebBrowser.StatusText
+        Catch
+        End Try
     End Sub
 
     Private Sub OverpassWebBrowser_DocumentCompleted(sender As Object, e As WebBrowserDocumentCompletedEventArgs) Handles OverpassWebBrowser.DocumentCompleted
