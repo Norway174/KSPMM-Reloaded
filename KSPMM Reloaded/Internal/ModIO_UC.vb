@@ -1,4 +1,5 @@
 ﻿Imports KSPMM_Reloaded.Internal
+Imports Ionic.Zip
 Public Class ModIO_UC
 
     Sub New()
@@ -74,7 +75,7 @@ Public Class ModIO_UC
         Dim open As New OpenFileDialog
         open.Filter = "KSPMM Mod Files (*.kspmm)|*.kspmm|Compressed ZIP Folders (*.zip)|*.zip|All Files (*.*)|*.*"
         open.FileName = ""
-        If open.ShowDialog() = DialogResult.Cancel Or open.FileName = "" Then Exit Sub
+        If open.ShowDialog(Me) = DialogResult.Cancel Or open.FileName = "" Then Exit Sub
         Dim f As New IO.FileInfo(open.FileName)
         If f.Extension = ".zip" Then
             Internal.AddMod(New Internal.Modification(open.FileName, Internal.Compression.Zip))
@@ -146,7 +147,7 @@ Public Class ModIO_UC
     Private Sub ToolStripButton5_Click(sender As Object, e As EventArgs) Handles btnLocate.Click
         Dim fold As New FolderBrowserDialog
         fold.Description = "Find KSP root directory"
-        If fold.ShowDialog() = DialogResult.Cancel Then Exit Sub
+        If fold.ShowDialog(Me) = DialogResult.Cancel Then Exit Sub
         My.Settings.KSPDir = fold.SelectedPath
         My.Settings.Save()
     End Sub
@@ -156,5 +157,18 @@ Public Class ModIO_UC
             Mods(n.Tag).Use = n.Checked
         Next
         SaveModsToSettings(Mods)
+    End Sub
+
+    Private Sub btnLoadModpack_Click(sender As Object, e As EventArgs) Handles btnLoadModpack.Click
+        Dim open As New OpenFileDialog
+        open.Filter = "KSPMM Mod Pack (*.ksppack)|*.ksppack"
+        If open.ShowDialog(Me) = DialogResult.Cancel Then Exit Sub
+        Using z As New ZipFile(open.FileName)
+            For Each n As ZipEntry In z.EntriesSorted
+                Dim i As New InfoParser(Misc.GetTextFromZipEntry(n))
+                Dim down As New Internal.Download(New Uri(i.DownloadLink1), True, My.Computer.FileSystem.CurrentDirectory & "\" & i._nname & ".zip", Internal.Priority.Normal)
+                Internal.Network.Add(down)
+            Next
+        End Using
     End Sub
 End Class

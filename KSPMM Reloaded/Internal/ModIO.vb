@@ -157,7 +157,18 @@ Namespace Internal
         Sub New(ByVal _Filename As String, ByVal _Compression As Compression)
             Filename = _Filename
             Name = _Filename
-            Compression = _Compression
+            If _Compression = Internal.Compression.Auto Then
+                Dim f As New IO.FileInfo(_Filename)
+                If f.Extension = ".zip" Then
+                    Internal.AddMod(New Internal.Modification(_Filename, Internal.Compression.Zip))
+                ElseIf f.Extension = ".kspmm" Then
+                    Internal.AddMod(New Internal.Modification(_Filename, Internal.Compression.KSPMM))
+                Else
+                    Internal.AddMod(New Internal.Modification(_Filename, Internal.Compression.Other))
+                End If
+            Else
+                Compression = _Compression
+            End If
             Status = ModStatus.Uninstalled
             Use = False
             Select Case Compression
@@ -201,6 +212,7 @@ Namespace Internal
         Public Property Filename As String
     End Class
     Public Enum Compression
+        Auto = 0
         Zip = 1
         KSPMM = 2
         Other = 3

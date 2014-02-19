@@ -72,4 +72,8 @@
             End If
         Next
     End Sub
+
+    Private Sub ToolStripButton4_Click(sender As Object, e As EventArgs) Handles ToolStripButton4.Click
+        OverpassWebBrowser.GoBack()
+    End Sub
 End Class

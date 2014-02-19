@@ -44,7 +44,9 @@ Namespace Internal
             _downloads -= 1
             RaiseEvent CheckDownload(Download)
             CheckDownloads()
-
+            If Download.InstallOnDownloadCompletion Then
+                Dim m As New Modification(Download.Location, Compression.Auto)
+            End If
         End Sub
         Public Sub DownloadReady(ByVal Download As Download)
             RaiseEvent CheckDownload(Download)

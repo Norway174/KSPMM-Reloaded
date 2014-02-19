@@ -2,7 +2,7 @@
     Public TabCore As Core
     Public ScriptCore As Core
     Public UpdateAvailable As Boolean = False
-    Public Const Version As Integer = 2
+    Public Const Version As Integer = 3
     Private Sub ExitToolStripMenuItem_Click(sender As Object, e As EventArgs) Handles ExitToolStripMenuItem.Click
         End
     End Sub

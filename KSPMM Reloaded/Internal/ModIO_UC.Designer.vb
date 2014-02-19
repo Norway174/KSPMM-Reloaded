@@ -36,13 +36,14 @@ Partial Class ModIO_UC
         Me.prgOverall = New System.Windows.Forms.ToolStripProgressBar()
         Me.prgIndividual = New System.Windows.Forms.ToolStripProgressBar()
         Me.lblStatus = New System.Windows.Forms.ToolStripStatusLabel()
+        Me.btnLoadModpack = New System.Windows.Forms.ToolStripButton()
         Me.ToolStrip1.SuspendLayout()
         Me.StatusStrip1.SuspendLayout()
         Me.SuspendLayout()
         '
         'ToolStrip1
         '
-        Me.ToolStrip1.Items.AddRange(New System.Windows.Forms.ToolStripItem() {Me.btnAdd, Me.btnRemove, Me.btnLoad, Me.btnUnload, Me.btnLocate})
+        Me.ToolStrip1.Items.AddRange(New System.Windows.Forms.ToolStripItem() {Me.btnAdd, Me.btnRemove, Me.btnLoad, Me.btnUnload, Me.btnLocate, Me.btnLoadModpack})
         Me.ToolStrip1.Location = New System.Drawing.Point(0, 0)
         Me.ToolStrip1.Name = "ToolStrip1"
         Me.ToolStrip1.Size = New System.Drawing.Size(367, 25)
@@ -152,6 +153,15 @@ Partial Class ModIO_UC
         Me.lblStatus.Size = New System.Drawing.Size(26, 17)
         Me.lblStatus.Text = "Idle"
         '
+        'btnLoadModpack
+        '
+        Me.btnLoadModpack.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image
+        Me.btnLoadModpack.Image = CType(resources.GetObject("btnLoadModpack.Image"), System.Drawing.Image)
+        Me.btnLoadModpack.ImageTransparentColor = System.Drawing.Color.Magenta
+        Me.btnLoadModpack.Name = "btnLoadModpack"
+        Me.btnLoadModpack.Size = New System.Drawing.Size(23, 22)
+        Me.btnLoadModpack.Text = "Load Modpack"
+        '
         'ModIO_UC
         '
         Me.AutoScaleDimensions = New System.Drawing.SizeF(6.0!, 13.0!)
@@ -181,5 +191,6 @@ Partial Class ModIO_UC
     Friend WithEvents prgOverall As System.Windows.Forms.ToolStripProgressBar
     Friend WithEvents lblStatus As System.Windows.Forms.ToolStripStatusLabel
     Friend WithEvents prgIndividual As System.Windows.Forms.ToolStripProgressBar
+    Friend WithEvents btnLoadModpack As System.Windows.Forms.ToolStripButton
 
 End Class
