@@ -12,12 +12,16 @@
         Select Case _Plugin.TypeOfPlugin
             Case Plugin.PluginType.TabbedUserControl
                 Dim tab As New TabPage()
-                tab.Controls.Add(_Plugin.Control)
-                tab.Controls(0).Dock = DockStyle.Fill
+                Dim c As Control = _Plugin.Control
+                c.MinimumSize = c.Size
+                c.Dock = DockStyle.Fill
+                tab.Controls.Add(c)
                 tab.AutoScroll = True
                 tab.Text = _Plugin.Name
                 Main.tabctrlMain.TabPages.Add(tab)
-            Case Plugin.PluginType.RuntimeStartup
+            Case Plugin.PluginType.RuntimeScript
+                _Plugin.MainDelegate.Invoke()
+            Case Plugin.PluginType.ShutdownScript
                 _Plugin.MainDelegate.Invoke()
             Case Plugin.PluginType.MainFormStartup
                 _Plugin.MainDelegate.Invoke()
@@ -50,8 +54,9 @@ Public Class Plugin
     Public Enum PluginType
         All = 0
         TabbedUserControl = 1
-        RuntimeStartup = 2
-        MainFormStartup = 3
+        RuntimeScript = 2
+        ShutdownScript = 3
+        MainFormStartup = 4
     End Enum
 
     Public Property MainDelegate As IPlugin.PluginDelegate Implements IPlugin.MainDelegate

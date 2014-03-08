@@ -3,11 +3,13 @@ Namespace Internal
     Public Module Core
         ReadOnly Property ListOfInternalPlugins As IPlugin()
             Get
-                Dim list As IPlugin() = {Internal.Startup.Plugin, _
+                'Internal.Startup.Plugin, _
+                Dim list As IPlugin() = {Internal.ModIO.Plugin, _
+                                         Internal.ModIO.StartupPlugin, _
                                          Internal.Network.Plugin, _
-                                         Internal.ModIO.Plugin, _
                                          Internal.Settings.Plugin, _
-                                         Internal.Overpass.Plugin}
+                                         Internal.Overpass.Plugin, _
+                                         Internal.PermissionResetter.Plugin}
                 Return list
             End Get
         End Property

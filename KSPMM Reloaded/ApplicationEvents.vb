@@ -12,14 +12,12 @@
             BasicUFL.CriticalError(sender, e)
         End Sub
         Public Sub Start() Handles Me.Startup
-            Dim c As New Core(Nothing, Plugin.PluginType.RuntimeStartup)
+            Dim c As New Core(Nothing, Plugin.PluginType.RuntimeScript)
         End Sub
         Public Sub AppStop() Handles Me.Shutdown
+            Dim c As New Core(Nothing, Plugin.PluginType.ShutdownScript)
             My.Settings.Save()
         End Sub
-
     End Class
-
-
 End Namespace
 

@@ -115,6 +115,7 @@
     <Compile Include="Internal\Overpass_UC.vb">
       <SubType>UserControl</SubType>
     </Compile>
+    <Compile Include="Internal\PermissionResetter.vb" />
     <Compile Include="Internal\Settings.vb" />
     <Compile Include="Internal\Settings_UC.Designer.vb">
       <DependentUpon>Settings_UC.vb</DependentUpon>

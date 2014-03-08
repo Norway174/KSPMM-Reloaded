@@ -9,27 +9,31 @@
 
     Private Sub Main_Load(sender As Object, e As EventArgs) Handles MyBase.Load
         CheckForIllegalCrossThreadCalls = False
-        StartupTimer.Enabled = True
-        StartupTimer.Start()
+        'Dim t As New Threading.Thread(AddressOf StartupThread)
+        ' t.IsBackground = True
+        't.Start()
+        StartupThread()
+    End Sub
+    Public Sub StartupThread()
+        Status.Text = "Loading Plugins..."
+        TabCore = New Core(tabctrlMain, Plugin.PluginType.TabbedUserControl)
+        Status.Text = "Running Scripts..."
+        ScriptCore = New Core(tabctrlMain, Plugin.PluginType.MainFormStartup)
+        Status.Text = "Idle"
+        If My.Settings.AutoUpdate = True Then
+            CheckForUpdatesToolStripMenuItem.Image = My.Resources.tick
+            CheckForUpdates()
+        End If
     End Sub
 
     Private Sub CheckForUpdatesToolStripMenuItem_Click(sender As Object, e As EventArgs) Handles CheckForUpdatesToolStripMenuItem.Click
-        'Dim s = Internal.Settings.ObtainSetting("AutoUpdate")
-        'Dim b As Boolean
-        'If s Is Nothing Then
-        'b = False
-        'Else
-        'b = s.Setting(0)
-        'End If
         Dim b As Boolean = My.Settings.AutoUpdate
         Select Case b
             Case True
                 CheckForUpdatesToolStripMenuItem.Image = Nothing
-                'Internal.Settings.ChangeSettings(Internal.SettingMode.CreateorUpdate, New Internal.InternalSetting({False}, "AutoUpdate"))
                 My.Settings.AutoUpdate = False
             Case False
                 CheckForUpdatesToolStripMenuItem.Image = My.Resources.tick
-                'Internal.Settings.ChangeSettings(Internal.SettingMode.CreateorUpdate, New Internal.InternalSetting({True}, "AutoUpdate"))
                 My.Settings.AutoUpdate = True
         End Select
         My.Settings.Save()
@@ -82,33 +86,6 @@
         Dim UpdW As New Updater
         UpdW.PassedText = "https://raw.github.com/Norway174/KSPMM-Reloaded/master/KSPMM%20Reloaded.exe"
         UpdW.ShowDialog(Me)
-    End Sub
-
-    Private Sub StartupTimer_Tick(sender As Object, e As EventArgs) Handles StartupTimer.Tick
-        StartupTimer.Stop()
-        StartupTimer.Enabled = False
-        Status.Text = "Loading Plugins..."
-        TabCore = New Core(tabctrlMain, Plugin.PluginType.TabbedUserControl)
-        Status.Text = "Running Scripts..."
-        ScriptCore = New Core(tabctrlMain, Plugin.PluginType.MainFormStartup)
-        Status.Text = "Idle"
-        If My.Settings.AutoUpdate = True Then
-            CheckForUpdatesToolStripMenuItem.Image = My.Resources.tick
-            Dim t As New Threading.Thread(AddressOf CheckForUpdates)
-            t.Start()
-        End If
-        'Dim s = Internal.Settings.ObtainSetting("AutoUpdate")
-        'Dim b As Boolean
-        'If s Is Nothing Then
-        'b = False
-        'Else
-        'b = s.Setting(0)
-        'End If
-        'Select Case b
-        '   Case True
-        'CheckForUpdatesToolStripMenuItem.Image = My.Resources.tick
-        '    Case False
-        'End Select
     End Sub
 
     Dim ubhidden As Boolean = False

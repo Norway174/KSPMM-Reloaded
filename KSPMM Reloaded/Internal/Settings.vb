@@ -15,8 +15,8 @@
                 p.MainDelegate = New IPlugin.PluginDelegate(AddressOf Startup)
                 p.Description = "Basic Program-wide settings"
                 p.Name = "Settings"
-                p.TypeOfPlugin = KSPMM_Reloaded.Plugin.PluginType.RuntimeStartup
-                p.Version = New Version(1, 0, 0, 0)
+                p.TypeOfPlugin = KSPMM_Reloaded.Plugin.PluginType.RuntimeScript
+                p.Version = New Version(2, 0, 0, 0)
                 Return p
             End Get
         End Property
@@ -85,6 +85,7 @@
         Public Function ObtainSetting(ByVal ID As String) As InternalSetting
             Dim l As New List(Of InternalSetting)
             l = LoadSettings(My.Settings.Settings)
+            If l Is Nothing Then Return Nothing
             For Each n As InternalSetting In l
                 If n.ID = ID Then
                     Return n
@@ -94,13 +95,17 @@
         End Function
 
         Public Function LoadSettings(ByVal settings As String) As List(Of InternalSetting)
-            Dim xml_serializer As New Xml.Serialization.XmlSerializer(GetType(List(Of InternalSetting)))
-            Dim string_reader As New IO.StringReader(settings)
-            Dim lel As List(Of InternalSetting) = _
-                DirectCast(xml_serializer.Deserialize(string_reader),  _
-                    List(Of InternalSetting))
-            string_reader.Close()
-            Return lel
+            Try
+                Dim xml_serializer As New Xml.Serialization.XmlSerializer(GetType(List(Of InternalSetting)))
+                Dim string_reader As New IO.StringReader(settings)
+                Dim lel As List(Of InternalSetting) = _
+                    DirectCast(xml_serializer.Deserialize(string_reader),  _
+                        List(Of InternalSetting))
+                string_reader.Close()
+                Return lel
+            Catch ex As Exception
+                Return Nothing
+            End Try
         End Function
         Public Function SaveSettings(Of T)(ByVal List As List(Of T)) As String
             Dim xml_serializer As New Xml.Serialization.XmlSerializer(GetType(List(Of T)))

@@ -11,61 +11,61 @@ Public Class ModIO_UC
     End Sub
 
     Private Sub ModIO_UC_Load(sender As Object, e As EventArgs) Handles MyBase.Load
-        Internal.ModIO.Mods = Internal.ModIO.LoadModsFromSettings()
         BuildTree()
     End Sub
-    'Public Sub RebuildTree()
-    '   TreeView1.Nodes.Clear()
-    '  For Each m As Internal.Modification In Internal.ModIO.Mods
-    'Dim n As New List(Of String)
-    '       For Each mm As Internal.ModSelection In m.ModSelections
-    '          n.Add(mm.ModEntryName)
-    '     Next
-    'Dim TN As TreeNode
-    '       For Each nodePath As String In n
-    '          TN = Nothing
-    '         For Each node As String In nodePath.Split("/")
-    '            If node = "" Then Continue For
-    '           If IsNothing(TN) Then
-    '              If TreeView1.Nodes.ContainsKey(node) Then
-    '                 TN = TreeView1.Nodes(node)
-    ''            Else
-    '              TN = TreeView1.Nodes.Add(node, node)
-    '         End If
-    '    Else
-    '       If TN.Nodes.ContainsKey(node) Then
-    '          TN = TN.Nodes(node)
-    '     Else
-    '        TN = TN.Nodes.Add(node, node)
-    '   End If
-    '           End If
-    '      Next
-    ' Next
-    '     Next
-    'End Sub
     Public Sub RebuildTree()
         For Each t As TreeNode In TreeView1.Nodes
             Select Case Mods(t.Tag).Status
                 Case ModStatus.Uninstalled : t.ForeColor = Color.Black
                 Case ModStatus.Installed : t.ForeColor = Color.Green
+                Case ModStatus.Installed : t.ForeColor = Color.Maroon
             End Select
         Next
     End Sub
-    Public Sub BuildTree()
+    Public Sub BuildTree(Optional ByVal filter As String = "")
         TreeView1.Nodes.Clear()
         Dim i = 0
         For Each m As Modification In Mods
-            Dim t As New TreeNode(m.Name, 0, 0)
-            Select Case m.Status
-                Case ModStatus.Uninstalled : t.ForeColor = Color.Black
-                Case ModStatus.Installed : t.ForeColor = Color.Green
-            End Select
-            t.Tag = i
-            t.Checked = m.Use
-            TreeView1.Nodes.Add(t)
-            i += 1
+            If filter = "" Or m.Name.ToLower.Contains(filter.ToLower) Then
+                Dim t As New TreeNode()
+                Select Case m.Compression
+                    Case Compression.KSPMM : t = New TreeNode(m.Name, 1, 1)
+                    Case Else : t = New TreeNode(m.Name, 0, 0)
+                End Select
+                Select Case m.Status
+                    Case ModStatus.Uninstalled : t.ForeColor = Color.Black
+                    Case ModStatus.Installed : t.ForeColor = Color.Green
+                    Case ModStatus.Installed : t.ForeColor = Color.Maroon
+                End Select
+                t.ContextMenuStrip = GenerateContextMenuStrip(i)
+                t.Tag = i
+                t.Checked = m.Use
+                TreeView1.Nodes.Add(t)
+                i += 1
+            End If
         Next
     End Sub
+
+
+#Region "Context Menu Actions"
+    Public Function GenerateContextMenuStrip(ByVal Tag As Object) As ContextMenuStrip
+        Dim c As New ContextMenuStrip()
+
+        Dim i As New ToolStripMenuItem
+        AddHandler c.ItemClicked, Sub()
+                                      CRename(Tag)
+                                  End Sub
+        i.Text = "Rename"
+        c.Items.Add(i)
+
+        Return c
+    End Function
+    Public Sub CRename(ByVal tag As Object)
+        Mods(tag).Name = InputBox("Rename mod", "Rename", Mods(tag).Name)
+        ModIO.SaveModsToSettings(Mods)
+        BuildTree()
+    End Sub
+#End Region
 
     Public Sub StatusUpdate(ByVal Status As String)
         lblStatus.Text = Status
@@ -95,54 +95,21 @@ Public Class ModIO_UC
     End Sub
 
     Private Sub ToolStripButton4_Click(sender As Object, e As EventArgs) Handles btnUnload.Click
+        SetButtonStatus(False)
         If Internal.UnloadMods() Then StatusUpdate("Unloading Complete") Else MsgBox("Unloading Failed!", MsgBoxStyle.Critical)
+        SetButtonStatus(True)
     End Sub
 
     Private Sub ToolStripButton3_Click(sender As Object, e As EventArgs) Handles btnLoad.Click
         If My.Settings.KSPDir = "" Then MsgBox("KSP Directory folder has not been selected.")
-        ModIO.UnloadMods()
+        SetButtonStatus(False)
+        If ModIO.UnloadMods() = False Then MsgBox("Loading Failed!", MsgBoxStyle.Critical) : SetButtonStatus(True) : Exit Sub
         For Each node As TreeNode In TreeView1.Nodes
             Mods(node.Tag).Use = node.Checked
         Next
-        'For Each node As TreeNode In TreeView1.Nodes
-        'Dim l As List(Of ModSelection) = GetChildren(node)
-        'Dim i1 As Integer = 0
-        'Dim ml As ModSelection() = ModIO.Mods(i).ModSelections.ToArray
-        'For Each m As ModSelection In ml
-        ' If m.ModEntryName.EndsWith("/") Then
-        ' For Each g As ModSelection In l
-        ' If g.ModEntryName & "/" = m.ModEntryName Then
-        ' Dim g1 = g
-        ' g1.ModEntryName &= "/"
-        ' ModIO.Mods(i).ModSelections(i1) = g1
-        ' End If
-        ' Next
-        ' Else
-        ' For Each g As ModSelection In l
-        ' If g.ModEntryName = m.ModEntryName Then
-        ' ModIO.Mods(i).ModSelections(i1) = g
-        ' End If
-        ' Next
-        ' End If
-        ' i1 += 1
-        ' Next
-        ' i += 1
-        ' Next
         If Internal.LoadMods(My.Settings.KSPDir) = False Then MsgBox("Loading Failed!", MsgBoxStyle.Critical)
+        SetButtonStatus(True)
     End Sub
-
-    'Public Function GetChildren(parentNode As TreeNode) As List(Of ModSelection)
-    'Dim nodes As New List(Of ModSelection)
-    '   GetAllChildren(parentNode, nodes)
-    '  Return nodes
-    'End Function
-
-    'Private Sub GetAllChildren(parentNode As TreeNode, nodes As List(Of ModSelection))
-    '    For Each childNode As TreeNode In parentNode.Nodes
-    '        nodes.Add(New ModSelection(childNode.FullPath, childNode.Checked))
-    '        GetAllChildren(childNode, nodes)
-    '    Next
-    'End Sub
 
     Private Sub ToolStripButton5_Click(sender As Object, e As EventArgs) Handles btnLocate.Click
         Dim fold As New FolderBrowserDialog
@@ -170,5 +137,71 @@ Public Class ModIO_UC
                 Internal.Network.Add(down)
             Next
         End Using
+    End Sub
+
+    Private Sub btnEnableAll_Click(sender As Object, e As EventArgs) Handles btnEnableAll.Click
+        For Each m As Modification In Mods
+            m.Use = True
+        Next
+        BuildTree()
+    End Sub
+
+    Private Sub btnDisableAll_Click(sender As Object, e As EventArgs) Handles btnDisableAll.Click
+        For Each m As Modification In Mods
+            m.Use = False
+        Next
+        BuildTree()
+    End Sub
+
+    Public Property Presets As New List(Of Preset)
+    Private Sub ToolStripDropDownButton1_Click(sender As Object, e As EventArgs) 'Handles tsddPresets.Click
+        
+    End Sub
+    Private Sub PresetClick(sender As Object, e As EventArgs)
+        Dim t As ToolStripItem = sender
+
+    End Sub
+    Public Structure Preset
+        Sub New(ByVal PresetName As String, ByVal ModID As Integer, ByVal Use As Boolean)
+            Name = PresetName
+            ID = ModID
+            Used = Use
+        End Sub
+        Public Name As String
+        Public ID As Integer
+        Public Used As Boolean
+    End Structure
+
+    Private Sub btnFilterMods_Click(sender As Object, e As EventArgs) Handles btnFilterMods.Click
+        If ToolStrip2.Visible Then
+            ToolStrip2.Visible = False
+            ToolStrip2.BringToFront()
+            txtFilter.Text = ""
+            BuildTree()
+            SetButtonStatus(True)
+        Else
+            ToolStrip2.Visible = True
+            ToolStrip2.SendToBack()
+            ToolStrip1.SendToBack()
+            SetButtonStatus(False)
+            btnFilterMods.Enabled = True
+            btnRemove.Enabled = True
+        End If
+    End Sub
+
+    Private Sub txtFilter_TextChanged(sender As Object, e As EventArgs) Handles txtFilter.TextChanged
+        BuildTree(txtFilter.Text)
+    End Sub
+
+    Public Sub SetButtonStatus(ByVal Enabled As Boolean)
+        btnAdd.Enabled = Enabled
+        btnRemove.Enabled = Enabled
+        btnLoad.Enabled = Enabled
+        btnUnload.Enabled = Enabled
+        btnLocate.Enabled = Enabled
+        btnLoadModpack.Enabled = Enabled
+        btnEnableAll.Enabled = Enabled
+        btnDisableAll.Enabled = Enabled
+        btnFilterMods.Enabled = Enabled
     End Sub
 End Class

@@ -22,7 +22,6 @@ Partial Class Main
     'Do not modify it using the code editor.
     <System.Diagnostics.DebuggerStepThrough()> _
     Private Sub InitializeComponent()
-        Me.components = New System.ComponentModel.Container()
         Dim resources As System.ComponentModel.ComponentResourceManager = New System.ComponentModel.ComponentResourceManager(GetType(Main))
         Me.UpdateStatusStrip = New System.Windows.Forms.StatusStrip()
         Me.ToolStripProgressBar1 = New System.Windows.Forms.ToolStripProgressBar()
@@ -33,10 +32,9 @@ Partial Class Main
         Me.FileToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem()
         Me.ExitToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem()
         Me.EditToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem()
-        Me.tabctrlMain = New System.Windows.Forms.TabControl()
-        Me.StartupTimer = New System.Windows.Forms.Timer(Me.components)
         Me.ViewToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem()
         Me.HideUpdateBarToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem()
+        Me.tabctrlMain = New System.Windows.Forms.TabControl()
         Me.UpdateStatusStrip.SuspendLayout()
         Me.MenuStrip1.SuspendLayout()
         Me.SuspendLayout()
@@ -44,9 +42,10 @@ Partial Class Main
         'UpdateStatusStrip
         '
         Me.UpdateStatusStrip.Items.AddRange(New System.Windows.Forms.ToolStripItem() {Me.ToolStripProgressBar1, Me.UpdateButton, Me.Status})
-        Me.UpdateStatusStrip.Location = New System.Drawing.Point(0, 254)
+        Me.UpdateStatusStrip.Location = New System.Drawing.Point(0, 344)
         Me.UpdateStatusStrip.Name = "UpdateStatusStrip"
-        Me.UpdateStatusStrip.Size = New System.Drawing.Size(527, 22)
+        Me.UpdateStatusStrip.RightToLeft = System.Windows.Forms.RightToLeft.No
+        Me.UpdateStatusStrip.Size = New System.Drawing.Size(645, 22)
         Me.UpdateStatusStrip.TabIndex = 0
         Me.UpdateStatusStrip.Text = "StatusStrip1"
         '
@@ -83,7 +82,7 @@ Partial Class Main
         Me.MenuStrip1.Items.AddRange(New System.Windows.Forms.ToolStripItem() {Me.FileToolStripMenuItem, Me.EditToolStripMenuItem, Me.ViewToolStripMenuItem})
         Me.MenuStrip1.Location = New System.Drawing.Point(0, 0)
         Me.MenuStrip1.Name = "MenuStrip1"
-        Me.MenuStrip1.Size = New System.Drawing.Size(527, 24)
+        Me.MenuStrip1.Size = New System.Drawing.Size(645, 24)
         Me.MenuStrip1.TabIndex = 1
         Me.MenuStrip1.Text = "MenuStrip1"
         '
@@ -106,19 +105,6 @@ Partial Class Main
         Me.EditToolStripMenuItem.Size = New System.Drawing.Size(39, 20)
         Me.EditToolStripMenuItem.Text = "Edit"
         '
-        'tabctrlMain
-        '
-        Me.tabctrlMain.Dock = System.Windows.Forms.DockStyle.Fill
-        Me.tabctrlMain.Location = New System.Drawing.Point(0, 24)
-        Me.tabctrlMain.Name = "tabctrlMain"
-        Me.tabctrlMain.SelectedIndex = 0
-        Me.tabctrlMain.Size = New System.Drawing.Size(527, 230)
-        Me.tabctrlMain.TabIndex = 3
-        Me.tabctrlMain.TabStop = False
-        '
-        'StartupTimer
-        '
-        '
         'ViewToolStripMenuItem
         '
         Me.ViewToolStripMenuItem.DropDownItems.AddRange(New System.Windows.Forms.ToolStripItem() {Me.HideUpdateBarToolStripMenuItem})
@@ -132,11 +118,21 @@ Partial Class Main
         Me.HideUpdateBarToolStripMenuItem.Size = New System.Drawing.Size(160, 22)
         Me.HideUpdateBarToolStripMenuItem.Text = "Hide Update Bar"
         '
+        'tabctrlMain
+        '
+        Me.tabctrlMain.Dock = System.Windows.Forms.DockStyle.Fill
+        Me.tabctrlMain.Location = New System.Drawing.Point(0, 24)
+        Me.tabctrlMain.Name = "tabctrlMain"
+        Me.tabctrlMain.SelectedIndex = 0
+        Me.tabctrlMain.Size = New System.Drawing.Size(645, 320)
+        Me.tabctrlMain.TabIndex = 3
+        Me.tabctrlMain.TabStop = False
+        '
         'Main
         '
         Me.AutoScaleDimensions = New System.Drawing.SizeF(6.0!, 13.0!)
         Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font
-        Me.ClientSize = New System.Drawing.Size(527, 276)
+        Me.ClientSize = New System.Drawing.Size(645, 366)
         Me.Controls.Add(Me.tabctrlMain)
         Me.Controls.Add(Me.UpdateStatusStrip)
         Me.Controls.Add(Me.MenuStrip1)
@@ -162,7 +158,6 @@ Partial Class Main
     Friend WithEvents ToolStripProgressBar1 As System.Windows.Forms.ToolStripProgressBar
     Friend WithEvents UpdateButton As System.Windows.Forms.ToolStripSplitButton
     Friend WithEvents CheckForUpdatesToolStripMenuItem As System.Windows.Forms.ToolStripMenuItem
-    Friend WithEvents StartupTimer As System.Windows.Forms.Timer
     Friend WithEvents ViewToolStripMenuItem As System.Windows.Forms.ToolStripMenuItem
     Friend WithEvents HideUpdateBarToolStripMenuItem As System.Windows.Forms.ToolStripMenuItem
 

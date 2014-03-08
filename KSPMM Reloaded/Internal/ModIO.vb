@@ -11,15 +11,38 @@ Namespace Internal
                 p.Description = "Basic Mod I/O"
                 p.Name = "Modding"
                 p.TypeOfPlugin = KSPMM_Reloaded.Plugin.PluginType.TabbedUserControl
-                p.Version = New Version(1, 1, 0, 0)
+                p.Version = New Version(2, 0, 0, 0)
+                Return p
+            End Get
+        End Property
+        Public ReadOnly Property StartupPlugin As Plugin
+            Get
+                Dim p As New Plugin
+                p.Name = "Modding Startup"
+                p.TypeOfPlugin = KSPMM_Reloaded.Plugin.PluginType.RuntimeScript
+                p.MainDelegate = AddressOf Startup
+                p.Version = New Version(1, 0, 0, 0)
                 Return p
             End Get
         End Property
         Private Flags() As String = {"Flags", "Parts", "Props", "Resources", "Sounds", "Spaces", "PluginData", "Plugins", "Textures"}
         Public Mods As New List(Of Modification)
+        Public Dir As String = My.Computer.FileSystem.CurrentDirectory & "\MODS"
+        Public Sub Startup()
+            If IO.Directory.Exists(Dir) = False Then
+                IO.Directory.CreateDirectory(Dir)
+            End If
+            Internal.ModIO.Mods = Internal.ModIO.LoadModsFromSettings()
+            ReEvaluateStatus()
+        End Sub
         Public Sub AddMod(ByVal Modification As Modification)
-            Modification.Index = Mods.Count
-            Mods.Add(Modification)
+            Modification.ID = Mods.Count
+            Dim m = Modification
+            Dim newname As String = Dir & "\" & Modification.Filename.Remove(0, Modification.Filename.LastIndexOf("\"c))
+            File.Copy(Modification.Filename, newname)
+            m.Filename = newname
+            Mods.Add(m)
+            ReEvaluateStatus()
             SaveModsToSettings(Mods)
             UC.BuildTree()
         End Sub
@@ -33,31 +56,46 @@ Namespace Internal
                 Next
             End Using
             Return False
-            'MsgBox("File structure not currently supported. This is not even a beta, so you should've been expecting it.", MsgBoxStyle.Exclamation)
         End Function
         Public Sub RemoveMod(ByVal Modification As Modification)
+            Try
+                IO.File.Delete(Modification.Filename)
+            Catch ex As Exception
+            End Try
             Mods.Remove(Modification)
+            ReEvaluateStatus()
             SaveModsToSettings(Mods)
             UC.BuildTree()
         End Sub
         Public Function LoadModsFromSettings() As List(Of Modification)
-            'Return Settings.ObtainSetting("Mods").Setting(0)
-            If My.Settings.Mods = "" Then
-                My.Settings.Mods = Settings.SaveSettings(New List(Of Modification))
-                My.Settings.Save()
-                Return New List(Of Modification)
-            End If
-            Dim xml_serializer As New Xml.Serialization.XmlSerializer(GetType(List(Of Modification)))
-            Dim string_reader As New IO.StringReader(My.Settings.Mods)
-            Dim lel As List(Of Modification) = _
-                DirectCast(xml_serializer.Deserialize(string_reader),  _
-                    List(Of Modification))
-            string_reader.Close()
-            Return lel
-            'Return Settings.LoadSettings(My.Settings.Mods)
+            Try
+                If My.Settings.Mods = "" Then
+                    My.Settings.Mods = Settings.SaveSettings(New List(Of Modification))
+                    My.Settings.Save()
+                    Return New List(Of Modification)
+                End If
+                Dim xml_serializer As New Xml.Serialization.XmlSerializer(GetType(List(Of Modification)))
+                Dim string_reader As New IO.StringReader(My.Settings.Mods)
+                Dim lel As List(Of Modification) = _
+                    DirectCast(xml_serializer.Deserialize(string_reader),  _
+                        List(Of Modification))
+                string_reader.Close()
+                Return lel
+            Catch
+            End Try
+            Return New List(Of Modification)
         End Function
+        Public Sub ReEvaluateStatus()
+            Dim i = 0
+            For Each m As Modification In Mods
+                If m.Status = ModStatus.Installed Then Continue For
+                If IO.File.Exists(m.Filename) = False Then
+                    Mods(i).Status = ModStatus.Missing
+                End If
+                i += 1
+            Next
+        End Sub
         Public Sub SaveModsToSettings(ByVal sett As List(Of Modification))
-            'Settings.ChangeSettings(SettingMode.CreateorUpdate, New InternalSetting({Mods}, "Mods"))
             My.Settings.Mods = Settings.SaveSettings(sett)
             My.Settings.Save()
         End Sub
@@ -93,8 +131,6 @@ Namespace Internal
                         For Each entry As ZipEntry In z.Entries
                             UC.prgIndividual.Maximum = z.Entries.Count
                             UC.prgIndividual.Value = ii + 1
-                            'For Each e As ModSelection In m.ModSelections
-                            'If entry.FileName = e.ModEntryName AndAlso e.Use Then
                             Log("Extracting " & entry.FileName)
                             Try
                                 entry.Extract(name, ExtractExistingFileAction.Throw)
@@ -107,12 +143,9 @@ Namespace Internal
                                 b = False
                                 Exit For
                             End Try
-                            'End If
-                            'Next
                             ii += 1
                             If b = True Then m.Status = ModStatus.Installed
                         Next
-                        'm.GetZipFile.ExtractAll(name, ExtractExistingFileAction.OverwriteSilently)
                     End Using
                     UC.TreeView1.Nodes(i).ImageIndex = 8
                     UC.TreeView1.Nodes(i).SelectedImageIndex = 8
@@ -161,10 +194,13 @@ Namespace Internal
                 Dim f As New IO.FileInfo(_Filename)
                 If f.Extension = ".zip" Then
                     Internal.AddMod(New Internal.Modification(_Filename, Internal.Compression.Zip))
+                    _Compression = Internal.Compression.Zip
                 ElseIf f.Extension = ".kspmm" Then
                     Internal.AddMod(New Internal.Modification(_Filename, Internal.Compression.KSPMM))
+                    _Compression = Internal.Compression.KSPMM
                 Else
                     Internal.AddMod(New Internal.Modification(_Filename, Internal.Compression.Other))
+                    _Compression = Internal.Compression.Other
                 End If
             Else
                 Compression = _Compression
@@ -173,7 +209,7 @@ Namespace Internal
             Use = False
             Select Case Compression
                 Case Internal.Compression.Zip
-                    
+
                 Case Internal.Compression.KSPMM
                     Using z = GetZipFile()
                         For Each e As ZipEntry In z.Entries
@@ -186,17 +222,8 @@ Namespace Internal
                 Case Internal.Compression.Other
                     Throw New NotImplementedException("Only ZIP supported at this time")
             End Select
-            'Using z As New ZipFile(_filename)
-            'For Each e As ZipEntry In z.Entries
-            'Dim m As New ModSelection
-            'm.ModEntryName = e.FileName
-            'm.Use = False
-            'ModSelections.Add(m)
-            'Next
-            'End Using
         End Sub
         Public Property Use As Boolean
-        'Public Property ModSelections As New List(Of ModSelection)
 
         Public Function GetZipFile() As ZipFile
             Return New ZipFile(Filename)
@@ -205,7 +232,7 @@ Namespace Internal
         Public Property Name As String
         Public Property Status As ModStatus
 
-        Public Property Index As Integer
+        Public Property ID As Integer
         Public Property ModFolderExtracted As String
 
         Public Property Compression As Compression
@@ -218,6 +245,7 @@ Namespace Internal
         Other = 3
     End Enum
     Public Enum ModStatus
+        Missing = -1
         Uninstalled = 0
         Installed = 1
     End Enum
