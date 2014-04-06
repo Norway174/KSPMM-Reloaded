@@ -17,12 +17,13 @@ Public Class Network_UC
         Internal.Network.DownloadReady(Download)
     End Sub
     Private Sub Button1_Click(sender As Object, e As EventArgs) Handles Button1.Click
+        Dim url = Internal.Network.ParseURL(TextBox1.Text)
+        If url = Nothing Then MsgBox("Invalid URL") : Exit Sub
         Dim save As New SaveFileDialog
         save.Filter = "All Files (*.*)|*.*"
-        save.FileName = TextBox1.Text.Remove(0, TextBox1.Text.LastIndexOf("/"c) + 1)
+        save.FileName = url.ToString.Remove(0, url.ToString().LastIndexOf("/"c) + 1)
         If save.ShowDialog(Me) = DialogResult.Cancel Or save.FileName = "" Then Exit Sub
-        Dim down As New Internal.Download(New Uri(TextBox1.Text), False, save.FileName, Internal.Priority.Normal)
-        Internal.Network.Add(down)
+        Internal.Network.Add(New Internal.Download(url, (save.FileName.EndsWith(".zip") Or save.FileName.EndsWith(".kspmm")), save.FileName, Internal.Priority.Normal))
     End Sub
 
     Private Sub Network_UC_Load(sender As Object, e As EventArgs) Handles MyBase.Load

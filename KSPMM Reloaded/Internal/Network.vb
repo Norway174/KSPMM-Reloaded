@@ -38,20 +38,27 @@ Namespace Internal
             AddHandler Download.Complete, AddressOf DownloadComplete
             NetworkUC.AddDownload(Download, NetworkUC.DownloadPanel)
             Downloads.Add(Download)
+            _downloads += 1
         End Sub
-        Public Event CheckDownload(ByVal Download As Download)
         Public Sub DownloadComplete(ByVal Download As Download, ByVal Success As Boolean, ByVal ErrorCode As Integer)
             _downloads -= 1
-            RaiseEvent CheckDownload(Download)
             CheckDownloads()
             If Download.InstallOnDownloadCompletion Then
-                Dim m As New Modification(Download.Location, Compression.Auto)
+                ModIO.AddMod(New Modification(Download.Location, Compression.Auto))
+                'Download.NewStatus("Installed")
             End If
         End Sub
         Public Sub DownloadReady(ByVal Download As Download)
-            RaiseEvent CheckDownload(Download)
             CheckDownloads()
         End Sub
+        Public Function ParseURL(ByVal URL As String) As Uri
+            Select Case URL.Split(":"c)(0)
+                Case "spaceport" : Return GetURL.GetSpaceportURL(URL.Split(":"c)(1))
+                Case "dropbox" : Return GetURL.GetDropboxURL(URL.Split(":"c)(1))
+                Case "mediafire" : Return GetURL.GetMediafireURL(URL.Split(":"c)(1))
+                Case Else : Return New Uri(URL)
+            End Select
+        End Function
 
         Private Structure cdownload
             Sub New(ByRef _Control As Control, ByRef _Download As Download)
@@ -287,6 +294,9 @@ Namespace Internal
             Request.AddRange(CLng(Position))
             Request = WebRequest.Create(URI)
             Response = Request.GetResponse
+        End Sub
+        Public Sub NewStatus(ByVal Status As String)
+            RaiseEvent StatusChange(Status)
         End Sub
 
 

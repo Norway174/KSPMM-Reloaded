@@ -167,6 +167,7 @@ Partial Class ModIO_UC
         Me.tsddPresets.Size = New System.Drawing.Size(57, 22)
         Me.tsddPresets.Text = "Presets"
         Me.tsddPresets.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageAboveText
+        Me.tsddPresets.Visible = False
         '
         'AddPresetToolStripMenuItem
         '
@@ -182,6 +183,7 @@ Partial Class ModIO_UC
         '
         'TreeView1
         '
+        Me.TreeView1.AllowDrop = True
         Me.TreeView1.CheckBoxes = True
         Me.TreeView1.Dock = System.Windows.Forms.DockStyle.Fill
         Me.TreeView1.ImageIndex = 0

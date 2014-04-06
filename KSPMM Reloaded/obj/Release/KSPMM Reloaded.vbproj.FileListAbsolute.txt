@@ -19,3 +19,24 @@ D:\Users\obicj.KARDINIA\Documents\GitHub\KSPMM-Reloaded\KSPMM Reloaded\obj\Relea
 D:\Users\obicj.KARDINIA\Documents\GitHub\KSPMM-Reloaded\KSPMM Reloaded\obj\Release\KSPMM Reloaded.xml
 D:\Users\obicj.KARDINIA\Documents\GitHub\KSPMM-Reloaded\KSPMM Reloaded\obj\Release\KSPMM Reloaded.pdb
 D:\Users\obicj.KARDINIA\Documents\GitHub\KSPMM-Reloaded\KSPMM Reloaded\obj\Release\KSPMM_Reloaded.Overpass_UC.resources
+d:\Users\obicj.KARDINIA\Google Drive\GitHub\KSPMM-Reloaded\KSPMM Reloaded\bin\Release\KSPMM Reloaded.exe.config
+d:\Users\obicj.KARDINIA\Google Drive\GitHub\KSPMM-Reloaded\KSPMM Reloaded\obj\Release\KSPMM Reloaded.exe
+d:\Users\obicj.KARDINIA\Google Drive\GitHub\KSPMM-Reloaded\KSPMM Reloaded\obj\Release\KSPMM Reloaded.xml
+d:\Users\obicj.KARDINIA\Google Drive\GitHub\KSPMM-Reloaded\KSPMM Reloaded\obj\Release\KSPMM Reloaded.pdb
+d:\Users\obicj.KARDINIA\Google Drive\GitHub\KSPMM-Reloaded\KSPMM Reloaded\bin\Release\KSPMM Reloaded.exe
+d:\Users\obicj.KARDINIA\Google Drive\GitHub\KSPMM-Reloaded\KSPMM Reloaded\bin\Release\KSPMM Reloaded.pdb
+d:\Users\obicj.KARDINIA\Google Drive\GitHub\KSPMM-Reloaded\KSPMM Reloaded\bin\Release\KSPMM Reloaded.xml
+d:\Users\obicj.KARDINIA\Google Drive\GitHub\KSPMM-Reloaded\KSPMM Reloaded\bin\Release\BasicUFL.dll
+d:\Users\obicj.KARDINIA\Google Drive\GitHub\KSPMM-Reloaded\KSPMM Reloaded\bin\Release\Ionic.Zip.dll
+d:\Users\obicj.KARDINIA\Google Drive\GitHub\KSPMM-Reloaded\KSPMM Reloaded\obj\Release\KSPMM Reloaded.vbprojResolveAssemblyReference.cache
+d:\Users\obicj.KARDINIA\Google Drive\GitHub\KSPMM-Reloaded\KSPMM Reloaded\obj\Release\KSPMM_Reloaded.Core.resources
+d:\Users\obicj.KARDINIA\Google Drive\GitHub\KSPMM-Reloaded\KSPMM Reloaded\obj\Release\KSPMM_Reloaded.ModIO_UC.resources
+d:\Users\obicj.KARDINIA\Google Drive\GitHub\KSPMM-Reloaded\KSPMM Reloaded\obj\Release\KSPMM_Reloaded.NetworkDownload_UC.resources
+d:\Users\obicj.KARDINIA\Google Drive\GitHub\KSPMM-Reloaded\KSPMM Reloaded\obj\Release\KSPMM_Reloaded.Network_UC.resources
+d:\Users\obicj.KARDINIA\Google Drive\GitHub\KSPMM-Reloaded\KSPMM Reloaded\obj\Release\KSPMM_Reloaded.Overpass_UC.resources
+d:\Users\obicj.KARDINIA\Google Drive\GitHub\KSPMM-Reloaded\KSPMM Reloaded\obj\Release\KSPMM_Reloaded.Settings_UC.resources
+d:\Users\obicj.KARDINIA\Google Drive\GitHub\KSPMM-Reloaded\KSPMM Reloaded\obj\Release\KSPMM_Reloaded.Startup_UC.resources
+d:\Users\obicj.KARDINIA\Google Drive\GitHub\KSPMM-Reloaded\KSPMM Reloaded\obj\Release\KSPMM_Reloaded.Main.resources
+d:\Users\obicj.KARDINIA\Google Drive\GitHub\KSPMM-Reloaded\KSPMM Reloaded\obj\Release\KSPMM_Reloaded.Resources.resources
+d:\Users\obicj.KARDINIA\Google Drive\GitHub\KSPMM-Reloaded\KSPMM Reloaded\obj\Release\KSPMM_Reloaded.Updater.resources
+d:\Users\obicj.KARDINIA\Google Drive\GitHub\KSPMM-Reloaded\KSPMM Reloaded\obj\Release\KSPMM Reloaded.vbproj.GenerateResource.Cache

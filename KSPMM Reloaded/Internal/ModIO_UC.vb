@@ -10,6 +10,19 @@ Public Class ModIO_UC
         ' Add any initialization after the InitializeComponent() call.
     End Sub
 
+#Region "Delegates"
+    Public Delegate Sub AddNodeDelegate(control As TreeView, node As TreeNode) '// defines a delegate type
+
+    Public Sub AddNode(control As TreeView, node As TreeNode)
+        If control.InvokeRequired Then
+            control.Invoke(New AddNodeDelegate(AddressOf AddNode), {control, node})  '// invoking itself
+        Else
+            control.Nodes.Add(node)      '// the "functional part", executing only on the main thread
+        End If
+    End Sub
+
+#End Region
+
     Private Sub ModIO_UC_Load(sender As Object, e As EventArgs) Handles MyBase.Load
         BuildTree()
     End Sub
@@ -40,7 +53,8 @@ Public Class ModIO_UC
                 t.ContextMenuStrip = GenerateContextMenuStrip(i)
                 t.Tag = i
                 t.Checked = m.Use
-                TreeView1.Nodes.Add(t)
+                'TreeView1.Nodes.Add(t)
+                AddNode(TreeView1, t)
                 i += 1
             End If
         Next
@@ -101,7 +115,7 @@ Public Class ModIO_UC
     End Sub
 
     Private Sub ToolStripButton3_Click(sender As Object, e As EventArgs) Handles btnLoad.Click
-        If My.Settings.KSPDir = "" Then MsgBox("KSP Directory folder has not been selected.")
+        If My.Settings.KSPDir = "" Then MsgBox("KSP Directory folder has not been selected.") : Exit Sub
         SetButtonStatus(False)
         If ModIO.UnloadMods() = False Then MsgBox("Loading Failed!", MsgBoxStyle.Critical) : SetButtonStatus(True) : Exit Sub
         For Each node As TreeNode In TreeView1.Nodes
@@ -133,7 +147,7 @@ Public Class ModIO_UC
         Using z As New ZipFile(open.FileName)
             For Each n As ZipEntry In z.EntriesSorted
                 Dim i As New InfoParser(Misc.GetTextFromZipEntry(n))
-                Dim down As New Internal.Download(New Uri(i.DownloadLink1), True, My.Computer.FileSystem.CurrentDirectory & "\" & i._nname & ".zip", Internal.Priority.Normal)
+                Dim down As New Internal.Download(Network.ParseURL(i.DownloadLink1), True, My.Computer.FileSystem.CurrentDirectory & "\" & i._nname & ".zip", Internal.Priority.Normal)
                 Internal.Network.Add(down)
             Next
         End Using
@@ -157,9 +171,19 @@ Public Class ModIO_UC
     Private Sub ToolStripDropDownButton1_Click(sender As Object, e As EventArgs) 'Handles tsddPresets.Click
         
     End Sub
-    Private Sub PresetClick(sender As Object, e As EventArgs)
-        Dim t As ToolStripItem = sender
+    Private Sub PresetClick(sender As Object, e As EventArgs) Handles tsddPresets.MouseDown
+        'tsddPresets.DropDownItems.Clear()
+        If tsddPresets.DropDownItems.Count > 2 Then
+            For i As Integer = 2 To tsddPresets.DropDownItems.Count - 1
+                tsddPresets.DropDownItems.RemoveAt(i)
+            Next
+        End If
+        Dim ii As Integer = 0
+        For Each p As Preset In Presets
+            Dim t As New ToolStripMenuItem()
+            t.Text = p.Name
 
+        Next
     End Sub
     Public Structure Preset
         Sub New(ByVal PresetName As String, ByVal ModID As Integer, ByVal Use As Boolean)
@@ -203,5 +227,25 @@ Public Class ModIO_UC
         btnEnableAll.Enabled = Enabled
         btnDisableAll.Enabled = Enabled
         btnFilterMods.Enabled = Enabled
+    End Sub
+
+    Private Sub TreeView1_DragDrop(sender As Object, e As DragEventArgs) Handles TreeView1.DragDrop
+        Dim files() As String = e.Data.GetData(DataFormats.FileDrop)
+        For Each path In files
+            Dim f As New IO.FileInfo(path)
+            If f.Extension = ".zip" Then
+                Internal.AddMod(New Internal.Modification(path, Internal.Compression.Zip))
+            ElseIf f.Extension = ".kspmm" Then
+                Internal.AddMod(New Internal.Modification(path, Internal.Compression.KSPMM))
+            Else
+                Internal.AddMod(New Internal.Modification(path, Internal.Compression.Other))
+            End If
+        Next
+    End Sub
+
+    Private Sub TreeView1_DragEnter(sender As Object, e As DragEventArgs) Handles TreeView1.DragEnter
+        If e.Data.GetDataPresent(DataFormats.FileDrop) Then
+            e.Effect = DragDropEffects.Copy
+        End If
     End Sub
 End Class

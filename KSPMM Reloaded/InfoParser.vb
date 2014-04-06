@@ -7,7 +7,7 @@
     Public Property DownloadLink1 As String
     Public Property DownloadLink2 As String
     Sub New(ByVal Text As String)
-        Dim name = My.Computer.FileSystem.SpecialDirectories.Temp & "\topkek"
+        Dim name = My.Computer.FileSystem.SpecialDirectories.Temp & "\temp"
         Dim w As New IO.StreamWriter(name)
         w.Write(Text)
         w.Close()

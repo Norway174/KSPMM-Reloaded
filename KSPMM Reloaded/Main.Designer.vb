@@ -42,7 +42,7 @@ Partial Class Main
         'UpdateStatusStrip
         '
         Me.UpdateStatusStrip.Items.AddRange(New System.Windows.Forms.ToolStripItem() {Me.ToolStripProgressBar1, Me.UpdateButton, Me.Status})
-        Me.UpdateStatusStrip.Location = New System.Drawing.Point(0, 344)
+        Me.UpdateStatusStrip.Location = New System.Drawing.Point(0, 375)
         Me.UpdateStatusStrip.Name = "UpdateStatusStrip"
         Me.UpdateStatusStrip.RightToLeft = System.Windows.Forms.RightToLeft.No
         Me.UpdateStatusStrip.Size = New System.Drawing.Size(645, 22)
@@ -124,7 +124,7 @@ Partial Class Main
         Me.tabctrlMain.Location = New System.Drawing.Point(0, 24)
         Me.tabctrlMain.Name = "tabctrlMain"
         Me.tabctrlMain.SelectedIndex = 0
-        Me.tabctrlMain.Size = New System.Drawing.Size(645, 320)
+        Me.tabctrlMain.Size = New System.Drawing.Size(645, 351)
         Me.tabctrlMain.TabIndex = 3
         Me.tabctrlMain.TabStop = False
         '
@@ -132,7 +132,7 @@ Partial Class Main
         '
         Me.AutoScaleDimensions = New System.Drawing.SizeF(6.0!, 13.0!)
         Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font
-        Me.ClientSize = New System.Drawing.Size(645, 366)
+        Me.ClientSize = New System.Drawing.Size(645, 397)
         Me.Controls.Add(Me.tabctrlMain)
         Me.Controls.Add(Me.UpdateStatusStrip)
         Me.Controls.Add(Me.MenuStrip1)

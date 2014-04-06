@@ -25,12 +25,13 @@ Namespace Internal
                 Return p
             End Get
         End Property
+
         Private Flags() As String = {"Flags", "Parts", "Props", "Resources", "Sounds", "Spaces", "PluginData", "Plugins", "Textures"}
         Public Mods As New List(Of Modification)
-        Public Dir As String = My.Computer.FileSystem.CurrentDirectory & "\MODS"
+        Public ModDir As String = My.Computer.FileSystem.CurrentDirectory & "\MODS"
         Public Sub Startup()
-            If IO.Directory.Exists(Dir) = False Then
-                IO.Directory.CreateDirectory(Dir)
+            If IO.Directory.Exists(ModDir) = False Then
+                IO.Directory.CreateDirectory(ModDir)
             End If
             Internal.ModIO.Mods = Internal.ModIO.LoadModsFromSettings()
             ReEvaluateStatus()
@@ -38,8 +39,8 @@ Namespace Internal
         Public Sub AddMod(ByVal Modification As Modification)
             Modification.ID = Mods.Count
             Dim m = Modification
-            Dim newname As String = Dir & "\" & Modification.Filename.Remove(0, Modification.Filename.LastIndexOf("\"c))
-            File.Copy(Modification.Filename, newname)
+            Dim newname As String = ModDir & "\" & Modification.Filename.Remove(0, Modification.Filename.LastIndexOf("\"c))
+            File.Copy(Modification.Filename, newname, True)
             m.Filename = newname
             Mods.Add(m)
             ReEvaluateStatus()
@@ -193,13 +194,13 @@ Namespace Internal
             If _Compression = Internal.Compression.Auto Then
                 Dim f As New IO.FileInfo(_Filename)
                 If f.Extension = ".zip" Then
-                    Internal.AddMod(New Internal.Modification(_Filename, Internal.Compression.Zip))
+                    'Internal.AddMod(New Internal.Modification(_Filename, Internal.Compression.Zip))
                     _Compression = Internal.Compression.Zip
                 ElseIf f.Extension = ".kspmm" Then
-                    Internal.AddMod(New Internal.Modification(_Filename, Internal.Compression.KSPMM))
+                    'Internal.AddMod(New Internal.Modification(_Filename, Internal.Compression.KSPMM))
                     _Compression = Internal.Compression.KSPMM
                 Else
-                    Internal.AddMod(New Internal.Modification(_Filename, Internal.Compression.Other))
+                    'Internal.AddMod(New Internal.Modification(_Filename, Internal.Compression.Other))
                     _Compression = Internal.Compression.Other
                 End If
             Else
